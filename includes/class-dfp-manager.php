@@ -47,6 +47,7 @@ class Dfp_Manager {
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
 	protected $plugin_name;
+	protected $plugin_title;
 
 	/**
 	 * The current version of the plugin.
@@ -69,6 +70,7 @@ class Dfp_Manager {
 	public function __construct() {
 
 		$this->plugin_name = 'dfp-manager';
+		$this->plugin_title = 'DFP Manager';
 		$this->version = '1.0.0';
 
 		$this->load_dependencies();
@@ -149,10 +151,12 @@ class Dfp_Manager {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Dfp_Manager_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Dfp_Manager_Admin( $this->get_plugin_name(), $this->get_plugin_title(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'init');
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'menu');
 
 	}
 
@@ -190,6 +194,10 @@ class Dfp_Manager {
 	 */
 	public function get_plugin_name() {
 		return $this->plugin_name;
+	}
+
+	public function get_plugin_title() {
+		return $this->plugin_title;
 	}
 
 	/**

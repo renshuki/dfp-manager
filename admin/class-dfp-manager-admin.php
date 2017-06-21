@@ -30,15 +30,16 @@ class Dfp_Manager_Admin {
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
 	private $plugin_name;
+  private $plugin_title;
 
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
+  /**    
+   * The version of this plugin. 
+   *    
+   * @since    1.0.0    
+   * @access private    
+   * @var      string $version    The current version of this plugin.
+  */   
+  private $version;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -47,9 +48,10 @@ class Dfp_Manager_Admin {
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct( $plugin_name, $plugin_title, $version ) {
 
 		$this->plugin_name = $plugin_name;
+    $this->plugin_title = $plugin_title;
 		$this->version = $version;
 
 	}
@@ -98,6 +100,16 @@ class Dfp_Manager_Admin {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/dfp-manager-admin.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	public function init() {
+		$settings_group = 'dfp_manager_settings';
+    $setting_name = 'dfp_api_key';
+		register_setting( $settings_group, $setting_name );
+	}
+
+	public function menu() {
+		add_menu_page( $this->plugin_title, $this->plugin_title, 'manage_options', plugin_dir_path(__FILE__) . 'partials/dfp-manager-admin-display.php');
 	}
 
 }
