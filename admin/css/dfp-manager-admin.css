@@ -2,3 +2,10 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+ .installedapp_or_webapp_settings {
+ }
+
+ .installedapp_or_webapp_settings label {
+  width: 100px;
+ }

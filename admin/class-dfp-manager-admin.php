@@ -103,9 +103,36 @@ class Dfp_Manager_Admin {
 	}
 
 	public function init() {
-		$settings_group = 'dfp_manager_settings';
-    $setting_name = 'dfp_api_key';
-		register_setting( $settings_group, $setting_name );
+		// DFP
+		register_setting( 'dfp_manager_settings', 'network_code' );
+		register_setting( 'dfp_manager_settings', 'application_name' );
+		register_setting( 'dfp_manager_settings', 'endpoint' );
+
+		// OAUTH2
+		register_setting( 'dfp_manager_settings', 'api_key' );
+		register_setting( 'dfp_manager_settings', 'scopes' );
+		register_setting( 'dfp_manager_settings', 'impersonated_email' );
+		register_setting( 'dfp_manager_settings', 'installedapp_or_webapp');
+		register_setting( 'dfp_manager_settings', 'client_id');
+		register_setting( 'dfp_manager_settings', 'client_secret');
+		register_setting( 'dfp_manager_settings', 'refresh_token');
+
+		// SOAP
+		register_setting( 'dfp_manager_settings', 'compression_level');
+		register_setting( 'dfp_manager_settings', 'wsdl_cache');
+
+		// PROXY
+		register_setting( 'dfp_manager_settings', 'proxy_host');
+		register_setting( 'dfp_manager_settings', 'proxy_port');
+		register_setting( 'dfp_manager_settings', 'proxy_user');
+		register_setting( 'dfp_manager_settings', 'proxy_password');
+
+		// LOGGING
+		register_setting( 'dfp_manager_settings', 'log_path');
+		register_setting( 'dfp_manager_settings', 'log_level');
+		register_setting( 'dfp_manager_settings', 'rd_log_path');
+		register_setting( 'dfp_manager_settings', 'rd_log_level');
+
 	}
 
 	public function menu() {
