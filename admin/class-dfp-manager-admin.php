@@ -41,6 +41,8 @@ class Dfp_Manager_Admin {
   */   
   private $version;
 
+  protected $views = array();
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -135,8 +137,17 @@ class Dfp_Manager_Admin {
 
 	}
 
-	public function menu() {
-		add_menu_page( $this->plugin_title, $this->plugin_title, 'manage_options', plugin_dir_path(__FILE__) . 'partials/dfp-manager-admin-display.php');
+	public function load_view() {
+		$current_views = $this->views[current_filter()];
+		include(plugin_dir_path(__FILE__) . 'partials/'.$current_views.'.php');
+	}
+
+	public function menus() {
+		$view_general = add_menu_page( 'DFP Manager', 'DFP Manager', 'manage_options', 'dfp-manager-admin-general', array(&$this, 'load_view'));
+		$this->views[$view_general] = 'dfp-manager-admin-general';
+
+		$view_advanced = add_submenu_page('dfp-manager-admin-general', 'Advanced', 'Advanced', 'manage_options', 'dfp-manager-admin-advanced', array(&$this, 'load_view'));
+		$this->views[$view_advanced] = 'dfp-manager-admin-advanced';
 	}
 
 }

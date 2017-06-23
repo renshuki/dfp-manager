@@ -47,10 +47,9 @@ $rd_log_level = get_option('rd_log_level');
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 
 <div class="wrap">
-  <h1>DFP Manager Settings</h1>
+  <h1>DFP Manager - General Settings</h1>
     <form method="post" action="options.php">
       <?php settings_fields( 'dfp_manager_settings' ); ?>
-      <?php do_settings_sections( 'dfp_manager_settings' ); ?>
       <h2 class="title">DFP</h2>
       <p>Required DFP API properties. <br/>Details can be found at: <a href="https://developers.google.com/doubleclick-publishers/docs/soap_xml">https://developers.google.com/doubleclick-publishers/docs/soap_xml</a></p>
       <table class="form-table">
