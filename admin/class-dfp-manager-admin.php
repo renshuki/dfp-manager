@@ -105,35 +105,51 @@ class Dfp_Manager_Admin {
 	}
 
 	public function init() {
+
+		//###########################
+		#                           #
+		#     General Settings      #   
+		#														#
+		###########################//
+
 		// DFP
-		register_setting( 'dfp_manager_settings', 'network_code' );
-		register_setting( 'dfp_manager_settings', 'application_name' );
-		register_setting( 'dfp_manager_settings', 'endpoint' );
+		register_setting( 'dfp_manager_general_settings', 'network_code' );
+		register_setting( 'dfp_manager_general_settings', 'application_name' );
+		register_setting( 'dfp_manager_general_settings', 'endpoint' );
 
 		// OAUTH2
-		register_setting( 'dfp_manager_settings', 'api_key' );
-		register_setting( 'dfp_manager_settings', 'scopes' );
-		register_setting( 'dfp_manager_settings', 'impersonated_email' );
-		register_setting( 'dfp_manager_settings', 'installedapp_or_webapp');
-		register_setting( 'dfp_manager_settings', 'client_id');
-		register_setting( 'dfp_manager_settings', 'client_secret');
-		register_setting( 'dfp_manager_settings', 'refresh_token');
+		register_setting( 'dfp_manager_general_settings', 'api_key' );
+		register_setting( 'dfp_manager_general_settings', 'scopes' );
+		register_setting( 'dfp_manager_general_settings', 'impersonated_email' );
+		register_setting( 'dfp_manager_general_settings', 'installedapp_or_webapp');
+		register_setting( 'dfp_manager_general_settings', 'client_id');
+		register_setting( 'dfp_manager_general_settings', 'client_secret');
+		register_setting( 'dfp_manager_general_settings', 'refresh_token');
 
 		// SOAP
-		register_setting( 'dfp_manager_settings', 'compression_level');
-		register_setting( 'dfp_manager_settings', 'wsdl_cache');
+		register_setting( 'dfp_manager_general_settings', 'compression_level');
+		register_setting( 'dfp_manager_general_settings', 'wsdl_cache');
 
 		// PROXY
-		register_setting( 'dfp_manager_settings', 'proxy_host');
-		register_setting( 'dfp_manager_settings', 'proxy_port');
-		register_setting( 'dfp_manager_settings', 'proxy_user');
-		register_setting( 'dfp_manager_settings', 'proxy_password');
+		register_setting( 'dfp_manager_general_settings', 'proxy_host');
+		register_setting( 'dfp_manager_general_settings', 'proxy_port');
+		register_setting( 'dfp_manager_general_settings', 'proxy_user');
+		register_setting( 'dfp_manager_general_settings', 'proxy_password');
 
 		// LOGGING
-		register_setting( 'dfp_manager_settings', 'log_path');
-		register_setting( 'dfp_manager_settings', 'log_level');
-		register_setting( 'dfp_manager_settings', 'rd_log_path');
-		register_setting( 'dfp_manager_settings', 'rd_log_level');
+		register_setting( 'dfp_manager_general_settings', 'log_path');
+		register_setting( 'dfp_manager_general_settings', 'log_level');
+		register_setting( 'dfp_manager_general_settings', 'rd_log_path');
+		register_setting( 'dfp_manager_general_settings', 'rd_log_level');
+
+		//###########################
+		#                           #
+		#     Advanced Settings     #   
+		#														#
+		###########################//
+
+		register_setting( 'dfp_manager_advanced_settings', 'ad_units_prefix' );
+		register_setting( 'dfp_manager_advanced_settings', 'ad_units_include_post_type' );
 
 	}
 
@@ -143,11 +159,19 @@ class Dfp_Manager_Admin {
 	}
 
 	public function menus() {
-		$view_general = add_menu_page( 'DFP Manager', 'DFP Manager', 'manage_options', 'dfp-manager-admin-general', array(&$this, 'load_view'));
+		$view_top = add_menu_page( 'DFP Manager', 'DFP Manager', 'manage_options', 'dfp-manager-admin-top', array(&$this, 'load_view'));
+		$this->views[$view_top] = 'dfp-manager-admin-general';
+
+		$view_general = add_submenu_page('dfp-manager-admin-top', 'General', 'General', 'manage_options', 'dfp-manager-admin-general', array(&$this, 'load_view'));
 		$this->views[$view_general] = 'dfp-manager-admin-general';
 
-		$view_advanced = add_submenu_page('dfp-manager-admin-general', 'Advanced', 'Advanced', 'manage_options', 'dfp-manager-admin-advanced', array(&$this, 'load_view'));
+		$view_general = add_submenu_page('dfp-manager-admin-top', 'Ad Slots', 'Ad Slots', 'manage_options', 'dfp-manager-admin-adslots', array(&$this, 'load_view'));
+		$this->views[$view_general] = 'dfp-manager-admin-adslots';		
+
+		$view_advanced = add_submenu_page('dfp-manager-admin-top', 'Advanced', 'Advanced', 'manage_options', 'dfp-manager-admin-advanced', array(&$this, 'load_view'));
 		$this->views[$view_advanced] = 'dfp-manager-admin-advanced';
+
+		remove_submenu_page('dfp-manager-admin-top', 'dfp-manager-admin-top');
 	}
 
 }
