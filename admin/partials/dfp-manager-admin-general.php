@@ -179,15 +179,3 @@ $rd_log_level = get_option('rd_log_level');
       <?= submit_button('Save Changes'); ?>
     </form>
 </div>
-
-<script type="text/javascript">
-  (function($) {
-    var parent   = $('#installedapp_or_webapp');
-    var children = $('.installedapp_or_webapp_settings');
-
-    parent.change(function(){
-      children.toggleClass( 'hide-if-js', ! this.checked );
-    });
-
-  })(jQuery);
-</script>
