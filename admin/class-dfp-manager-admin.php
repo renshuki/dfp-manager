@@ -151,6 +151,50 @@ class Dfp_Manager_Admin {
 		register_setting( 'dfp_manager_advanced_settings', 'ad_units_prefix' );
 		register_setting( 'dfp_manager_advanced_settings', 'ad_units_include_post_type' );
 
+		//###########################
+    #                           #
+    #     Ad Slots Settings     #   
+    #                           #
+    ###########################//
+
+    $labels = array(
+      'name' => 'Ad Slots',
+      'singular_name' => 'Ad Slot',
+      'add_new' => 'Add new',
+      'add_new_item' => 'Ad Slot Name',
+      'edit_item' => 'Edit Book',
+      'new_item' => 'New Ad Slot',
+      'all_items' => 'All Ad Slots',
+      'view_item' => 'View Ad Slot',
+      'search_item' => 'Search Ad Slots',
+      'not_found' => 'No ad slot found',
+      'not_found_in_trash' => 'No ad slot found in Trash',
+      'parent_item_colon' => '',
+      'menu_name' => 'Ad Slot'
+    );
+
+
+
+    $args = array(
+      'labels' => $labels,
+      'public' => false,
+      'publicly_queryable' => false,
+      'show_ui' => true,
+      'show_in_menu' => false,
+      'show_in_admin_bar' => true,
+      'show_in_nav_menus' => true,
+      'can_export' => true,
+      'query_var' => true,
+      'rewrite' => array( 'slug' => 'ad_slot' ),
+      'capability_type' => 'post',
+      'has_archive' => false,
+      'hierarchical' => false,
+      'menu_position' => null,
+      'supports' => array( 'title' )
+      );
+
+    register_post_type( 'ad_slot', $args );
+
 	}
 
 	public function load_view() {
@@ -165,8 +209,8 @@ class Dfp_Manager_Admin {
 		$view_general = add_submenu_page('dfp-manager-admin-top', 'General', 'General', 'manage_options', 'dfp-manager-admin-general', array(&$this, 'load_view'));
 		$this->views[$view_general] = 'dfp-manager-admin-general';
 
-		$view_general = add_submenu_page('dfp-manager-admin-top', 'Ad Slots', 'Ad Slots', 'manage_options', 'dfp-manager-admin-adslots', array(&$this, 'load_view'));
-		$this->views[$view_general] = 'dfp-manager-admin-adslots';		
+		add_submenu_page( 'dfp-manager-admin-top', 'Ad Slots', 'Ad Slots', 'manage_options', 'edit.php?post_type=ad_slot', NULL );
+    add_submenu_page( 'dfp-manager-admin-top', 'New Ad Slot', 'New Ad Slot', 'manage_options', 'post-new.php?post_type=ad_slot', NULL );
 
 		$view_advanced = add_submenu_page('dfp-manager-admin-top', 'Advanced', 'Advanced', 'manage_options', 'dfp-manager-admin-advanced', array(&$this, 'load_view'));
 		$this->views[$view_advanced] = 'dfp-manager-admin-advanced';
