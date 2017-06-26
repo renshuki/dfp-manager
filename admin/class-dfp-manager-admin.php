@@ -161,8 +161,8 @@ class Dfp_Manager_Admin {
       'name' => 'Ad Slots',
       'singular_name' => 'Ad Slot',
       'add_new' => 'Add new',
-      'add_new_item' => 'Ad Slot Name',
-      'edit_item' => 'Edit Book',
+      'add_new_item' => 'New Ad Slot',
+      'edit_item' => 'Edit Ad Slot',
       'new_item' => 'New Ad Slot',
       'all_items' => 'All Ad Slots',
       'view_item' => 'View Ad Slot',
@@ -170,7 +170,7 @@ class Dfp_Manager_Admin {
       'not_found' => 'No ad slot found',
       'not_found_in_trash' => 'No ad slot found in Trash',
       'parent_item_colon' => '',
-      'menu_name' => 'Ad Slot'
+      'menu_name' => 'Ad Slots'
     );
 
 
