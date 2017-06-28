@@ -227,10 +227,10 @@ class Dfp_Manager_Admin {
       echo "
         <style type='text/css'>
           #misc-publishing-actions,
-          #minor-publishing-actions{
+          #minor-publishing-actions {
             display:none;
           }
-        </style>';
+        </style>
       ";
     }
   }
