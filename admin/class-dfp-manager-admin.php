@@ -219,4 +219,20 @@ class Dfp_Manager_Admin {
     $this->views[$view_advanced] = 'dfp-manager-admin-advanced';
   }
 
+  public function custom_publish_metabox() {
+    $mg_post_type = 'ad-slot';
+    global $post;
+
+    if($post->post_type == $mg_post_type){
+      echo "
+        <style type='text/css'>
+          #misc-publishing-actions,
+          #minor-publishing-actions{
+            display:none;
+          }
+        </style>';
+      ";
+    }
+  }
+
 }
