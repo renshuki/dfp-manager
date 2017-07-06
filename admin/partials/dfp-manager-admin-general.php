@@ -48,7 +48,7 @@ $rd_log_level = get_option('rd_log_level');
 
 <div class="wrap">
   <h1>DFP Manager - General Settings</h1>
-    <form method="post" action="options.php">
+    <form method="post" action="options.php" enctype="multipart/form-data">
       <?php settings_fields( 'dfp_manager_general_settings' ); ?>
       <h2 class="title">DFP</h2>
       <p>Required DFP API properties. <br/>Details can be found at: <a href="https://developers.google.com/doubleclick-publishers/docs/soap_xml">https://developers.google.com/doubleclick-publishers/docs/soap_xml</a></p>
@@ -77,7 +77,9 @@ $rd_log_level = get_option('rd_log_level');
         <tbody>
           <tr>
             <th scope="row"><label for="api_key">DFP API Key (JSON)</label></th>
-            <td><textarea name="api_key" id="api_key" class="large-text code" rows=10><?= isset($api_key) ? esc_attr($api_key) : ''; ?></textarea></td>
+            <td>
+              <input type="file" name="api_key" id="api_key" />
+            </td>
           </tr>
           <tr>
             <th scope="row"><label for="scopes">Scopes</label></th>

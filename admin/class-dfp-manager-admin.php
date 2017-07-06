@@ -163,7 +163,7 @@ class Dfp_Manager_Admin {
 		register_setting( 'dfp_manager_general_settings', 'endpoint' );
 
 		// OAUTH2
-		register_setting( 'dfp_manager_general_settings', 'api_key' );
+		register_setting( 'dfp_manager_general_settings', 'api_key');
 		register_setting( 'dfp_manager_general_settings', 'scopes' );
 		register_setting( 'dfp_manager_general_settings', 'impersonated_email' );
 		register_setting( 'dfp_manager_general_settings', 'installedapp_or_webapp');
@@ -232,6 +232,25 @@ class Dfp_Manager_Admin {
           }
         </style>
       ";
+    }
+  }
+
+  function handle_file_upload() {
+
+    // First check if the file appears on the _FILES array
+    if(isset($_FILES['api_key'])){
+      $pdf = $_FILES['api_key'];
+
+      // Use the wordpress function to upload
+      // test_upload_pdf corresponds to the position in the $_FILES array
+      // 0 means the content is not associated with any other posts
+      $uploaded=media_handle_upload('api_key', 0);
+      // Error checking using WP functions
+      if(is_wp_error($uploaded)){
+        echo "Error uploading file: " . $uploaded->get_error_message();
+      }else{
+        echo "File upload successful!";
+      }
     }
   }
 
