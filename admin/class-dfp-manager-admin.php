@@ -223,7 +223,7 @@ class Dfp_Manager_Admin {
     $mg_post_type = 'ad-slot';
     global $post;
 
-    if($post->post_type == $mg_post_type){
+    if(isset($post->post_type) == $mg_post_type){
       echo "
         <style type='text/css'>
           #misc-publishing-actions,
