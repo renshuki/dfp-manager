@@ -299,7 +299,9 @@ class Dfp_Manager_Admin {
 
   // OAUTH2
   function api_key_setting() {
+    $options = get_option('dfp_manager_general_settings');
     echo "<input type='file' name='api_key'  />";
+    echo "<div><strong>Current file:</strong> {$options['api_key']}</div>";
   }
 
   function scopes_setting() {
