@@ -79,6 +79,7 @@ $rd_log_level = get_option('rd_log_level');
             <th scope="row"><label for="api_key">DFP API Key (JSON)</label></th>
             <td>
               <input type="file" name="api_key" id="api_key" />
+              <?php echo $api_key['api_key']; ?>
             </td>
           </tr>
           <tr>

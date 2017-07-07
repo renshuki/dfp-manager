@@ -163,7 +163,7 @@ class Dfp_Manager_Admin {
 		register_setting( 'dfp_manager_general_settings', 'endpoint' );
 
 		// OAUTH2
-		register_setting( 'dfp_manager_general_settings', 'api_key');
+		register_setting( 'dfp_manager_general_settings', 'api_key', 'validate_setting');
 		register_setting( 'dfp_manager_general_settings', 'scopes' );
 		register_setting( 'dfp_manager_general_settings', 'impersonated_email' );
 		register_setting( 'dfp_manager_general_settings', 'installedapp_or_webapp');
@@ -235,23 +235,34 @@ class Dfp_Manager_Admin {
     }
   }
 
-  function handle_file_upload() {
-
-    // First check if the file appears on the _FILES array
-    if(isset($_FILES['api_key'])){
-      $pdf = $_FILES['api_key'];
-
-      // Use the wordpress function to upload
-      // test_upload_pdf corresponds to the position in the $_FILES array
-      // 0 means the content is not associated with any other posts
-      $uploaded=media_handle_upload('api_key', 0);
-      // Error checking using WP functions
-      if(is_wp_error($uploaded)){
-        echo "Error uploading file: " . $uploaded->get_error_message();
-      }else{
-        echo "File upload successful!";
-      }
-    }
+  function validate_setting($dfp_manager_general_settings) { 
+    $keys = array_keys($_FILES); $i = 0; foreach ( $_FILES as $image ) {
+      // if a files was upload   
+      if ($image['size']) {     
+        // if it is an image     
+        if ( preg_match('/(jpg|jpeg|png|gif)$/', $image['type']) ) {       
+          $override = array('test_form' => false);       
+          // save the file, and store an array, containing its location in $file       
+          $file = wp_handle_upload( $image, $override );       
+          $dfp_manager_general_settings[$keys[$i]] = $file['url'];     
+        } 
+        else {       
+          // Not an image.        
+          $options = get_option('api_key');       
+          $dfp_manager_general_settings[$keys[$i]] = $options[$logo];       
+          // Die and let the user know that they made a mistake.       
+          wp_die('No image was uploaded.');     
+        }   
+      }   
+      // Else, the user didn't upload a file.   
+      // Retain the image that's already on file.   
+      else {     
+        $options = get_option('api_key');     
+        $dfp_manager_general_settings[$keys[$i]] = $options[$keys[$i]];   
+      }   
+      $i++;
+    } 
+    return $dfp_manager_general_settings;
   }
 
 }
