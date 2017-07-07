@@ -157,35 +157,43 @@ class Dfp_Manager_Admin {
 		#														#
 		###########################//
 
+    register_setting( 'dfp_manager_general_settings', 'dfp_manager_general_settings', 'validate_settings');
+
+    add_settings_section('dfp_section', 'DFP', array( $this , 'dfp_section' ), 'dfp_section');
+    add_settings_section('oauth_section', 'OAUTH2', 'oauth_section', 'oauth_section');
+    add_settings_section('soap_section', 'SOAP', 'soap_section', 'soap_section');
+    add_settings_section('proxy_section', 'PROXY', 'proxy_section', 'proxy_section');
+    add_settings_section('logging_section', 'LOGGING', 'logging_section', 'logging_section');
+
 		// DFP
-		register_setting( 'dfp_manager_general_settings', 'network_code' );
-		register_setting( 'dfp_manager_general_settings', 'application_name' );
-		register_setting( 'dfp_manager_general_settings', 'endpoint' );
+    add_settings_field('network_code', 'Network Code', array( $this , 'network_code_setting' ), 'dfp_section', 'dfp_section');
+    add_settings_field('application_name', 'Application Name', array( $this , 'application_name_setting' ), 'dfp_section', 'dfp_section');
+    add_settings_field('endpoint', 'Endpoint', array( $this , 'endpoint_setting' ), 'dfp_section', 'dfp_section');
 
 		// OAUTH2
-		register_setting( 'dfp_manager_general_settings', 'api_key', 'validate_setting');
-		register_setting( 'dfp_manager_general_settings', 'scopes' );
-		register_setting( 'dfp_manager_general_settings', 'impersonated_email' );
-		register_setting( 'dfp_manager_general_settings', 'installedapp_or_webapp');
-		register_setting( 'dfp_manager_general_settings', 'client_id');
-		register_setting( 'dfp_manager_general_settings', 'client_secret');
-		register_setting( 'dfp_manager_general_settings', 'refresh_token');
+    add_settings_field('api_key', 'JSON API Key', 'api_key_setting', 'oauth_section', 'oauth_section');
+    add_settings_field('scopes', 'Scopes', 'scopes_setting', 'oauth_section', 'oauth_section');
+    add_settings_field('impersonated_email', 'Impersonated Email', 'impersonated_email_setting', 'oauth_section', 'oauth_section');
+    add_settings_field('installedapp_or_webapp', 'Installed App or Web App', 'installedapp_or_webapp_setting', 'oauth_section', 'oauth_section');
+    add_settings_field('client_id', 'Client ID', 'client_id_setting', 'oauth_section', 'oauth_section');
+    add_settings_field('client_secret', 'Client Secret', 'client_secret_setting', 'oauth_section', 'oauth_section');
+    add_settings_field('refresh_token', 'Refresh Token', 'refresh_token_setting', 'oauth_section', 'oauth_section');
 
 		// SOAP
-		register_setting( 'dfp_manager_general_settings', 'compression_level');
-		register_setting( 'dfp_manager_general_settings', 'wsdl_cache');
+    add_settings_field('compression_level', 'Compression Level', 'compression_level_setting', 'soap_section', 'soap_section');
+    add_settings_field('wsdl_cache', 'WSDL Cache', 'wsdl_cache_setting', 'soap_section', 'soap_section');
 
 		// PROXY
-		register_setting( 'dfp_manager_general_settings', 'proxy_host');
-		register_setting( 'dfp_manager_general_settings', 'proxy_port');
-		register_setting( 'dfp_manager_general_settings', 'proxy_user');
-		register_setting( 'dfp_manager_general_settings', 'proxy_password');
+    add_settings_field('proxy_host', 'Host', 'proxy_host_setting', 'proxy_section', 'proxy_section');
+    add_settings_field('proxy_port', 'Port', 'proxy_port_setting', 'proxy_section', 'proxy_section');
+    add_settings_field('proxy_user', 'User', 'proxy_user_setting', 'proxy_section', 'proxy_section');
+    add_settings_field('proxy_password', 'Password', 'proxy_password_setting', 'proxy_section', 'proxy_section');
 
 		// LOGGING
-		register_setting( 'dfp_manager_general_settings', 'log_path');
-		register_setting( 'dfp_manager_general_settings', 'log_level');
-		register_setting( 'dfp_manager_general_settings', 'rd_log_path');
-		register_setting( 'dfp_manager_general_settings', 'rd_log_level');
+    add_settings_field('log_path', 'Log Path', 'log_path_setting', 'logging_section', 'logging_section');
+    add_settings_field('log_level', 'Log Level', 'log_level_setting', 'logging_section', 'logging_section');
+    add_settings_field('rd_log_path', 'RD Log Path', 'rd_log_path_setting', 'logging_section', 'logging_section');
+    add_settings_field('rd_log_level', 'RD Log Level', 'rd_log_level_setting', 'logging_section', 'logging_section');
 
 		//###########################
 		#                           #
@@ -193,8 +201,12 @@ class Dfp_Manager_Admin {
 		#														#
 		###########################//
 
-		register_setting( 'dfp_manager_advanced_settings', 'ad_units_prefix' );
-		register_setting( 'dfp_manager_advanced_settings', 'ad_units_include_post_type' );
+    register_setting( 'dfp_manager_general_settings', 'dfp_manager_general_settings');
+
+    add_settings_section('ad_units_section', 'DFP', 'ad_units_section', 'ad_units_section');
+
+    add_settings_field('ad_units_prefix', 'Ad Units Prefix', 'ad_units_prefix_setting', 'ad_units_section', 'ad_units_section');
+    add_settings_field('ad_units_include_post_type', 'Include "Post type"', 'ad_units_include_post_type_setting', 'ad_units_section', 'ad_units_section');
 	}
 
 	public function load_view() {
@@ -235,27 +247,59 @@ class Dfp_Manager_Admin {
     }
   }
 
+  //### Sections ###//
+  function dfp_section() {
+    echo '<p>Required DFP API properties. <br/>Details can be found at: <a href="https://developers.google.com/doubleclick-publishers/docs/soap_xml">https://developers.google.com/doubleclick-publishers/docs/soap_xml</a></p>';
+  }
+
+  function oauth_section() {}
+  function soap_section() {}
+  function proxy_section() {}
+  function logging_section() {}
+
+  function adunits_section() {}
+
+  //### Fields ###//
+
+  // DFP
+  function network_code_setting() {
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[network_code]' type='text' class='regular-text' value='{$options['network_code']}' />";
+  }
+
+  function application_name_setting() {
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[application_name]' type='text' class='regular-text' value='{$options['application_name']}' />";
+  }
+
+  function endpoint_setting() {
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[endpoint_setting]' type='text' class='regular-text' value='{$options['endpoint_setting']}' />";
+  }
+
+  //
+
   function validate_setting($dfp_manager_general_settings) { 
-    $keys = array_keys($_FILES); $i = 0; foreach ( $_FILES as $image ) {
+    $keys = array_keys($_FILES); $i = 0; foreach ( $_FILES as $json ) {
       // if a files was upload   
-      if ($image['size']) {     
-        // if it is an image     
-        if ( preg_match('/(jpg|jpeg|png|gif)$/', $image['type']) ) {       
+      if ($json['size']) {     
+        // if it is a json     
+        if ( preg_match('/(jpg|jpeg|png|gif)$/', $json['type']) ) {       
           $override = array('test_form' => false);       
           // save the file, and store an array, containing its location in $file       
-          $file = wp_handle_upload( $image, $override );       
+          $file = wp_handle_upload( $json, $override );       
           $dfp_manager_general_settings[$keys[$i]] = $file['url'];     
         } 
         else {       
-          // Not an image.        
+          // Not a json.        
           $options = get_option('api_key');       
           $dfp_manager_general_settings[$keys[$i]] = $options[$logo];       
           // Die and let the user know that they made a mistake.       
-          wp_die('No image was uploaded.');     
+          wp_die('No json was uploaded.');     
         }   
       }   
       // Else, the user didn't upload a file.   
-      // Retain the image that's already on file.   
+      // Retain the json that's already on file.   
       else {     
         $options = get_option('api_key');     
         $dfp_manager_general_settings[$keys[$i]] = $options[$keys[$i]];   

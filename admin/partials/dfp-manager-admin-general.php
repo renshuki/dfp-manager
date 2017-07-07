@@ -12,36 +12,6 @@
  * @subpackage Dfp_Manager/admin/partials
  */
 
-// DFP
-$network_code = get_option('network_code');
-$application_name = get_option('application_name');
-$endpoint = get_option('endpoint');
-
-// OAUTH2
-$api_key = get_option('api_key');
-$scopes = get_option('scopes');
-$impersonated_email = get_option('impersonated_email');
-$installedapp_or_webapp = get_option('installedapp_or_webapp');
-$client_id = get_option('client_id');
-$client_secret = get_option('client_secret');
-$refresh_token = get_option('refresh_token');
-
-// SOAP
-$compression_level = get_option('compression_level');
-$wsdl_cache = get_option('wsdl_cache');
-
-// PROXY
-$proxy_host = get_option('proxy_host');
-$proxy_port = get_option('proxy_port');
-$proxy_user = get_option('proxy_user');
-$proxy_password = get_option('proxy_password');
-
-// LOGGING
-$log_path = get_option('log_path');
-$log_level = get_option('log_level');
-$rd_log_path = get_option('rd_log_path');
-$rd_log_level = get_option('rd_log_level');
-
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
@@ -50,6 +20,8 @@ $rd_log_level = get_option('rd_log_level');
   <h1>DFP Manager - General Settings</h1>
     <form method="post" action="options.php" enctype="multipart/form-data">
       <?php settings_fields( 'dfp_manager_general_settings' ); ?>
+      <?php do_settings_sections('dfp_section'); ?>
+      
       <h2 class="title">DFP</h2>
       <p>Required DFP API properties. <br/>Details can be found at: <a href="https://developers.google.com/doubleclick-publishers/docs/soap_xml">https://developers.google.com/doubleclick-publishers/docs/soap_xml</a></p>
       <table class="form-table">
