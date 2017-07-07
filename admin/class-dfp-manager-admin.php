@@ -157,13 +157,13 @@ class Dfp_Manager_Admin {
 		#														#
 		###########################//
 
-    register_setting( 'dfp_manager_general_settings', 'dfp_manager_general_settings', 'validate_settings');
+    register_setting( 'dfp_manager_general_settings', 'dfp_manager_general_settings', array( $this , 'upload_setting' ));
 
     add_settings_section('dfp_section', 'DFP', array( $this , 'dfp_section' ), 'dfp_section');
-    add_settings_section('oauth_section', 'OAUTH2', 'oauth_section', 'oauth_section');
-    add_settings_section('soap_section', 'SOAP', 'soap_section', 'soap_section');
-    add_settings_section('proxy_section', 'PROXY', 'proxy_section', 'proxy_section');
-    add_settings_section('logging_section', 'LOGGING', 'logging_section', 'logging_section');
+    add_settings_section('oauth_section', 'OAUTH2', array( $this , 'oauth_section' ), 'oauth_section');
+    add_settings_section('soap_section', 'SOAP', array( $this , 'soap_section' ), 'soap_section');
+    add_settings_section('proxy_section', 'PROXY', array( $this , 'proxy_section' ), 'proxy_section');
+    add_settings_section('logging_section', 'LOGGING', array( $this , 'logging_section' ), 'logging_section');
 
 		// DFP
     add_settings_field('network_code', 'Network Code', array( $this , 'network_code_setting' ), 'dfp_section', 'dfp_section');
@@ -171,29 +171,29 @@ class Dfp_Manager_Admin {
     add_settings_field('endpoint', 'Endpoint', array( $this , 'endpoint_setting' ), 'dfp_section', 'dfp_section');
 
 		// OAUTH2
-    add_settings_field('api_key', 'JSON API Key', 'api_key_setting', 'oauth_section', 'oauth_section');
-    add_settings_field('scopes', 'Scopes', 'scopes_setting', 'oauth_section', 'oauth_section');
-    add_settings_field('impersonated_email', 'Impersonated Email', 'impersonated_email_setting', 'oauth_section', 'oauth_section');
-    add_settings_field('installedapp_or_webapp', 'Installed App or Web App', 'installedapp_or_webapp_setting', 'oauth_section', 'oauth_section');
-    add_settings_field('client_id', 'Client ID', 'client_id_setting', 'oauth_section', 'oauth_section');
-    add_settings_field('client_secret', 'Client Secret', 'client_secret_setting', 'oauth_section', 'oauth_section');
-    add_settings_field('refresh_token', 'Refresh Token', 'refresh_token_setting', 'oauth_section', 'oauth_section');
+    add_settings_field('api_key', 'JSON API Key', array( $this , 'api_key_setting' ), 'oauth_section', 'oauth_section');
+    add_settings_field('scopes', 'Scopes', array( $this , 'scopes_setting' ), 'oauth_section', 'oauth_section');
+    add_settings_field('impersonated_email', 'Impersonated Email', array( $this , 'impersonated_email_setting' ), 'oauth_section', 'oauth_section');
+    add_settings_field('installedapp_or_webapp', 'Installed Application or Web Application flow', array( $this , 'installedapp_or_webapp_setting' ), 'oauth_section', 'oauth_section');
+    add_settings_field('client_id', 'Client ID', array( $this , 'client_id_setting' ), 'oauth_section', 'oauth_section');
+    add_settings_field('client_secret', 'Client Secret', array( $this , 'client_secret_setting' ), 'oauth_section', 'oauth_section');
+    add_settings_field('refresh_token', 'Refresh Token', array( $this , 'refresh_token_setting' ), 'oauth_section', 'oauth_section');
 
 		// SOAP
-    add_settings_field('compression_level', 'Compression Level', 'compression_level_setting', 'soap_section', 'soap_section');
-    add_settings_field('wsdl_cache', 'WSDL Cache', 'wsdl_cache_setting', 'soap_section', 'soap_section');
+    add_settings_field('compression_level', 'Compression Level', array( $this , 'compression_level_setting' ), 'soap_section', 'soap_section');
+    add_settings_field('wsdl_cache', 'WSDL Cache', array( $this , 'wsdl_cache_setting' ), 'soap_section', 'soap_section');
 
 		// PROXY
-    add_settings_field('proxy_host', 'Host', 'proxy_host_setting', 'proxy_section', 'proxy_section');
-    add_settings_field('proxy_port', 'Port', 'proxy_port_setting', 'proxy_section', 'proxy_section');
-    add_settings_field('proxy_user', 'User', 'proxy_user_setting', 'proxy_section', 'proxy_section');
-    add_settings_field('proxy_password', 'Password', 'proxy_password_setting', 'proxy_section', 'proxy_section');
+    add_settings_field('proxy_host', 'Host', array( $this , 'proxy_host_setting' ), 'proxy_section', 'proxy_section');
+    add_settings_field('proxy_port', 'Port', array( $this , 'proxy_port_setting' ), 'proxy_section', 'proxy_section');
+    add_settings_field('proxy_user', 'User', array( $this , 'proxy_user_setting' ), 'proxy_section', 'proxy_section');
+    add_settings_field('proxy_password', 'Password', array( $this , 'proxy_password_setting' ), 'proxy_section', 'proxy_section');
 
 		// LOGGING
-    add_settings_field('log_path', 'Log Path', 'log_path_setting', 'logging_section', 'logging_section');
-    add_settings_field('log_level', 'Log Level', 'log_level_setting', 'logging_section', 'logging_section');
-    add_settings_field('rd_log_path', 'RD Log Path', 'rd_log_path_setting', 'logging_section', 'logging_section');
-    add_settings_field('rd_log_level', 'RD Log Level', 'rd_log_level_setting', 'logging_section', 'logging_section');
+    add_settings_field('log_path', 'Log Path', array( $this , 'log_path_setting' ), 'logging_section', 'logging_section');
+    add_settings_field('log_level', 'Log Level', array( $this , 'log_level_setting' ), 'logging_section', 'logging_section');
+    add_settings_field('rd_log_path', 'Report Downloader Log Path', array( $this , 'rd_log_path_setting' ), 'logging_section', 'logging_section');
+    add_settings_field('rd_log_level', 'Report Downloader Log Level', array( $this , 'rd_log_level_setting' ), 'logging_section', 'logging_section');
 
 		//###########################
 		#                           #
@@ -201,12 +201,12 @@ class Dfp_Manager_Admin {
 		#														#
 		###########################//
 
-    register_setting( 'dfp_manager_general_settings', 'dfp_manager_general_settings');
+    register_setting( 'dfp_manager_advanced_settings', 'dfp_manager_advanced_settings');
 
-    add_settings_section('ad_units_section', 'DFP', 'ad_units_section', 'ad_units_section');
+    add_settings_section('ad_units_section', 'DFP', array( $this , 'ad_units_section' ), 'ad_units_section');
 
-    add_settings_field('ad_units_prefix', 'Ad Units Prefix', 'ad_units_prefix_setting', 'ad_units_section', 'ad_units_section');
-    add_settings_field('ad_units_include_post_type', 'Include "Post type"', 'ad_units_include_post_type_setting', 'ad_units_section', 'ad_units_section');
+    add_settings_field('ad_units_prefix', 'Ad Units Prefix', array( $this , 'ad_units_prefix_setting' ), 'ad_units_section', 'ad_units_section');
+    add_settings_field('ad_units_include_post_type', 'Include "Post type"', array( $this , 'ad_units_include_post_type_setting' ), 'ad_units_section', 'ad_units_section');
 	}
 
 	public function load_view() {
@@ -247,19 +247,39 @@ class Dfp_Manager_Admin {
     }
   }
 
-  //### Sections ###//
+  //###########################
+  #                           #
+  #    Sections Callbacks     #   
+  #                           #
+  ###########################//
+
   function dfp_section() {
     echo '<p>Required DFP API properties. <br/>Details can be found at: <a href="https://developers.google.com/doubleclick-publishers/docs/soap_xml">https://developers.google.com/doubleclick-publishers/docs/soap_xml</a></p>';
   }
 
-  function oauth_section() {}
-  function soap_section() {}
-  function proxy_section() {}
-  function logging_section() {}
+  function oauth_section() {
+    echo '<p>Required OAuth2 credentials. <br/>See the README for guidance: <a href="https://github.com/googleads/googleads-php-lib/blob/master/README.md#getting-started">https://github.com/googleads/googleads-php-lib/blob/master/README.md#getting-started</a></p>';
+  }
+
+  function soap_section() {
+    echo '<p>Optional SOAP settings. See SoapSettingsBuilder.php for more information.</p>';
+  }
+
+  function proxy_section() {
+    echo '<p>Optional proxy settings to be used by SOAP requests.</p>';
+  }
+
+  function logging_section() {
+    echo '<p>Optional logging settings.</p>';
+  }
 
   function adunits_section() {}
 
-  //### Fields ###//
+  //###########################
+  #                           #
+  #     Fields Callbacks      #   
+  #                           #
+  ###########################//
 
   // DFP
   function network_code_setting() {
@@ -274,17 +294,116 @@ class Dfp_Manager_Admin {
 
   function endpoint_setting() {
     $options = get_option('dfp_manager_general_settings');
-    echo "<input name='dfp_manager_general_settings[endpoint_setting]' type='text' class='regular-text' value='{$options['endpoint_setting']}' />";
+    echo "<input name='dfp_manager_general_settings[endpoint]' type='text' class='regular-text' value='{$options['endpoint']}' />";
   }
 
-  //
+  // OAUTH2
+  function api_key_setting() {
+    echo "<input type='file' name='api_key'  />";
+  }
 
-  function validate_setting($dfp_manager_general_settings) { 
-    $keys = array_keys($_FILES); $i = 0; foreach ( $_FILES as $json ) {
+  function scopes_setting() {
+    $options = get_option('dfp_manager_general_settings');
+    $value = !empty($options['scopes']) ? $options['scopes'] : 'https://www.googleapis.com/auth/dfp';
+    echo "<input name='dfp_manager_general_settings[scopes]' type='text' class='regular-text' value='{$value}' />";
+  }
+
+  function impersonated_email_setting() {
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[impersonated_email]' type='text' class='regular-text' value='{$options['impersonated_email']}' />";
+  }
+
+  function installedapp_or_webapp_setting(){
+    $options = get_option('dfp_manager_general_settings');
+    $checked = (isset($options['installedapp_or_webapp']) == 1) ? "checked = 'checked'" : "";
+    echo "<input type='checkbox' name='dfp_manager_general_settings[installedapp_or_webapp]' value='1' {$checked} />";
+  }
+
+  function client_id_setting(){
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[client_id]' type='text' class='regular-text' value='{$options['client_id']}' />";
+  }
+
+  function client_secret_setting(){
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[client_secret]' type='text' class='regular-text' value='{$options['client_secret']}' />";
+  }
+  function refresh_token_setting(){
+   $options = get_option('dfp_manager_general_settings');
+   echo "<input name='dfp_manager_general_settings[refresh_token]' type='text' class='regular-text' value='{$options['refresh_token']}' />"; 
+  }
+
+  // SOAP
+  function compression_level_setting(){
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[compression_level]' type='text' class='regular-text' value='{$options['compression_level']}' />";
+  }
+
+  function wsdl_cache_setting(){
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[wsdl_cache]' type='text' class='regular-text' value='{$options['wsdl_cache']}' />"; 
+  }
+
+  // PROXY
+  function proxy_host_setting(){
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[proxy_host]' type='text' class='regular-text' value='{$options['proxy_host']}' />"; 
+  }
+
+  function proxy_port_setting(){
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[proxy_port]' type='text' class='regular-text' value='{$options['proxy_port']}' />"; 
+  }
+
+  function proxy_user_setting(){
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[proxy_user]' type='text' class='regular-text' value='{$options['proxy_user']}' />"; 
+  }
+
+  function proxy_password_setting(){
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[proxy_password]' type='text' class='regular-text' value='{$options['proxy_password']}' />"; 
+  }
+
+  // LOGGING
+  function log_path_setting(){
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[log_path]' type='text' class='regular-text' value='{$options['log_path']}' />"; 
+  }
+
+  function log_level_setting(){
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[log_level]' type='text' class='regular-text' value='{$options['log_level']}' />";
+  }
+
+  function rd_log_path_setting(){
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[rd_log_path]' type='text' class='regular-text' value='{$options['rd_log_path']}' />"; 
+  }
+
+  function rd_log_level_setting(){
+    $options = get_option('dfp_manager_general_settings');
+    echo "<input name='dfp_manager_general_settings[rd_log_level]' type='text' class='regular-text' value='{$options['rd_log_level']}' />";  
+  }
+
+  //###########################
+  #                           #
+  #      Upload Callback      #   
+  #                           #
+  ###########################//
+
+  function upload_setting($dfp_manager_general_settings) { 
+    
+    $keys = array_keys($_FILES); 
+    $i = 0; 
+
+    foreach ( $_FILES as $json ) {
+      $content = file_get_contents($json['tmp_name']);
+      $decoded_json = json_decode($content, true);
       // if a files was upload   
       if ($json['size']) {     
-        // if it is a json     
-        if ( preg_match('/(jpg|jpeg|png|gif)$/', $json['type']) ) {       
+        // if it is a json
+        if ( $decoded_json != null ) {       
           $override = array('test_form' => false);       
           // save the file, and store an array, containing its location in $file       
           $file = wp_handle_upload( $json, $override );       
@@ -292,21 +411,26 @@ class Dfp_Manager_Admin {
         } 
         else {       
           // Not a json.        
-          $options = get_option('api_key');       
-          $dfp_manager_general_settings[$keys[$i]] = $options[$logo];       
-          // Die and let the user know that they made a mistake.       
-          wp_die('No json was uploaded.');     
+          $options = get_option('dfp_manager_general_settings');       
+          $dfp_manager_general_settings[$keys[$i]] = "";       
+          // Die and let the user know that they made a mistake.     
+          wp_die('No JSON uploaded.');     
         }   
       }   
       // Else, the user didn't upload a file.   
       // Retain the json that's already on file.   
       else {     
-        $options = get_option('api_key');     
+        $options = get_option('dfp_manager_general_settings');     
         $dfp_manager_general_settings[$keys[$i]] = $options[$keys[$i]];   
       }   
       $i++;
     } 
     return $dfp_manager_general_settings;
+  }
+
+  public function custom_mime_types($mime_types) {
+    $mime_types['json'] = 'application/json'; // Adding .json extension
+    return $mime_types;
   }
 
 }
