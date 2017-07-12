@@ -13,6 +13,9 @@
  * @subpackage Dfp_Manager/includes
  */
 
+// Constants
+define("UPLOAD_FOLDER",     "dfp_manager_keys");
+
 /**
  * The core plugin class.
  *

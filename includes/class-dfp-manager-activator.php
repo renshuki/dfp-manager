@@ -30,7 +30,19 @@ class Dfp_Manager_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
+    $activator = new Dfp_Manager_Activator();
 
+    // Create upload folder for JSON keys
+    $activator->create_upload_folder(constant("UPLOAD_FOLDER"));
 	}
+
+  function create_upload_folder($folder_name) {
+    $upload_dir = wp_upload_dir(null, false);
+    $dfp_manager_dirname = $upload_dir['basedir'].'/'. $folder_name;
+
+    if ( ! file_exists( $dfp_manager_dirname ) ) {
+        wp_mkdir_p( $dfp_manager_dirname );
+    }
+  }
 
 }
