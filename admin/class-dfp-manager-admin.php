@@ -408,8 +408,10 @@ class Dfp_Manager_Admin {
         if ( $decoded_json != null ) {       
           $override = array('test_form' => false);       
           // save the file, and store an array, containing its location in $file       
+          add_filter('upload_dir', array($this, 'custom_upload_dir'));
           $file = wp_handle_upload( $json, $override );       
           $dfp_manager_general_settings[$keys[$i]] = $file['url'];     
+          remove_filter('upload_dir', array($this, 'custom_upload_dir'));
         } 
         else {       
           // Not a json.        
@@ -428,6 +430,14 @@ class Dfp_Manager_Admin {
       $i++;
     } 
     return $dfp_manager_general_settings;
+  }
+
+  function custom_upload_dir($upload) {
+    $upload['subdir'] = '/' . constant("UPLOAD_FOLDER");
+    $upload['path']   = $upload['basedir'] . $upload['subdir'];
+    $upload['url']    = $upload['baseurl'] . $upload['subdir'];
+
+    return $upload;
   }
 
   public function custom_mime_types($mime_types) {
