@@ -302,6 +302,7 @@ class Dfp_Manager_Admin {
     $options = get_option('dfp_manager_general_settings');
     echo "<input type='file' name='api_key'  />";
     echo "<div><strong>Current file:</strong> {$options['api_key']}</div>";
+    echo "<em>This file is not directly accessible for security reasons.</em>";
   }
 
   function scopes_setting() {
