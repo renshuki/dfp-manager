@@ -1,8 +1,27 @@
-# WIP
+# DFP Manager
 
 Please don't use this for the moment...   
 It's still under development.  
 Thank you =)
+
+## Todo
+
++ Implementation: 
+  - DFP endpoint (optional)
+  - OAuth2 impersonated email
+  - [Installed Application] or [Web Application Flow]
+  - Client ID
+  - Client secret
+  - Refresh token
+  - SOAP compression level and WSDL cache
+  - PROXY Host/Port/User/Password
+  - LOGGING: log path / log level / report downloader
+
++ Advanced settings
++ Ad Slots sizes
+> Example:  
+> add_action('publish_' . $_POST['post_type'], array($myDFP, 'main'), 10, 2);
++ Hooks for ad-units creation (publish, save or other ideas?)
 
 === Plugin Name ===
 Contributors: (this should be a list of wordpress.org userid's)
