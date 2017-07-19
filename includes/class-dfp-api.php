@@ -36,12 +36,21 @@ class DFPApi {
   public static function main() {
 
     // Generate a refreshable OAuth2 credential for authentication.
+    $options = get_option('dfp_manager_general_settings');
     $oAuth2Credential = (new OAuth2TokenBuilder())
-        ->withJsonKeyFilePath()
-        ->withScopes(get_option('scopes'))
+        ->withJsonKeyFilePath($options['api_key'])
+        ->withScopes($options['scopes'])
         ->build();
 
-    var_dump($oAuth2Credential);
+    // Construct an API session configured from a properties file and the OAuth2
+    // credentials above.
+    $session = (new DfpSessionBuilder())
+        ->withNetworkCode($options['network_code'])
+        ->withApplicationName($options['application_name'])
+        ->withOAuth2Credential($oAuth2Credential)
+        ->build();
+
+    var_dump($session);
 
   }
 }
