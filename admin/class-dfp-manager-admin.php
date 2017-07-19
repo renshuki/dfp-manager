@@ -302,7 +302,6 @@ class Dfp_Manager_Admin {
     $options = get_option('dfp_manager_general_settings');
     echo "<input type='file' name='api_key'  />";
     echo "<div><strong>Current file:</strong> {$options['api_key']}</div>";
-    echo "<em>This file is not directly accessible for security reasons.</em>";
   }
 
   function scopes_setting() {
@@ -410,8 +409,8 @@ class Dfp_Manager_Admin {
           $override = array('test_form' => false);       
           // save the file, and store an array, containing its location in $file       
           add_filter('upload_dir', array($this, 'custom_upload_dir'));
-          $file = wp_handle_upload( $json, $override );       
-          $dfp_manager_general_settings[$keys[$i]] = $file['url'];     
+          $file = wp_handle_upload( $json, $override );
+          $dfp_manager_general_settings[$keys[$i]] = $file['file'];     
           remove_filter('upload_dir', array($this, 'custom_upload_dir'));
         } 
         else {       
