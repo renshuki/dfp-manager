@@ -203,10 +203,11 @@ class Dfp_Manager_Admin {
 
     register_setting( 'dfp_manager_advanced_settings', 'dfp_manager_advanced_settings');
 
-    add_settings_section('ad_units_section', 'DFP', array( $this , 'ad_units_section' ), 'ad_units_section');
+    add_settings_section('adunits_section', 'Ad Units Code', array( $this , 'adunits_section' ), 'adunits_section');
 
-    add_settings_field('ad_units_prefix', 'Ad Units Prefix', array( $this , 'ad_units_prefix_setting' ), 'ad_units_section', 'ad_units_section');
-    add_settings_field('ad_units_include_post_type', 'Include "Post type"', array( $this , 'ad_units_include_post_type_setting' ), 'ad_units_section', 'ad_units_section');
+    add_settings_field('ad_units_prefix', 'Ad Units Prefix', array( $this , 'ad_units_prefix_setting' ), 'adunits_section', 'adunits_section');
+    add_settings_field('ad_units_include_post_type', 'Include "Post type"', array( $this , 'ad_units_include_post_type_setting' ), 'adunits_section', 'adunits_section');
+    add_settings_field('ad_units_result', 'Result', array( $this , 'ad_units_result_setting' ), 'adunits_section', 'adunits_section');
 	}
 
 	public function load_view() {
@@ -273,7 +274,9 @@ class Dfp_Manager_Admin {
     echo '<p>Optional logging settings.</p>';
   }
 
-  function adunits_section() {}
+  function adunits_section() {
+    echo '<p>Custom you ad unit code.</p>';
+  }
 
   //###########################
   #                           #
@@ -386,6 +389,33 @@ class Dfp_Manager_Admin {
   function rd_log_level_setting(){
     $options = get_option('dfp_manager_general_settings');
     echo "<input name='dfp_manager_general_settings[rd_log_level]' type='text' class='regular-text' value='{$options['rd_log_level']}' />";  
+  }
+
+  // ADVANCED SETTINGS
+
+  function ad_units_prefix_setting(){
+    $options = get_option('dfp_manager_advanced_settings');
+    echo "<input name='dfp_manager_advanced_settings[ad_units_prefix]' type='text' class='small-text' value='{$options['ad_units_prefix']}' />";  
+  }
+
+  function ad_units_include_post_type_setting(){
+    $options = get_option('dfp_manager_advanced_settings');
+    $checked = (isset($options['ad_units_include_post_type']) == 1) ? "checked = 'checked'" : "";
+    echo "<input type='checkbox' name='dfp_manager_advanced_settings[ad_units_include_post_type]' value='1' {$checked} />";
+  }
+
+  function ad_units_result_setting(){
+    $options = get_option('dfp_manager_advanced_settings');
+    $ad_units_prefix = $options['ad_units_prefix'];
+    $ad_units_include_post_type = $options['ad_units_include_post_type'];
+
+    $latest_post = get_posts(array('numberposts' => 1));
+    $prefix      = isset($ad_units_prefix) ? esc_attr($ad_units_prefix) : '';
+    $post_id     = $latest_post[0]->ID;
+    $post_type   = !empty($ad_units_include_post_type) ? '_'.$latest_post[0]->post_type : '';
+
+    echo($prefix . $post_id . $post_type);
+    echo "<p class='description'>(This is an example)</p>";
   }
 
   //###########################
