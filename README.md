@@ -4,6 +4,21 @@ Please don't use this for the moment...
 It's still under development.  
 Thank you =)
 
+## CLI Example
+
+> Don't forget to register your *Network Code*, *Application Name* and to upload your credentials JSON file in the **General Settings** page.  
+
+1) Go to `includes` directory of *dfp-manager* plugin.
+
+2) Execute:  
+`php class-dfp-cli-example.php`
+
+3) Result:  
+```
+0) An ad unit with ID '21620414035' and name 'test_5976e475523ad' was created.  
+Created 1 ad unit(s).
+```
+
 ## Todo
 
 + Implementation: 
