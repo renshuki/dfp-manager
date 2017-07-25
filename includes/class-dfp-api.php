@@ -33,24 +33,61 @@ use Google\AdsApi\Dfp\v201702\Size;
 
 class DFPApi {
 
+  public static function createAdUnit(DfpServices $dfpServices, DfpSession $session) {
+    $inventoryService =
+       $dfpServices->get($session, InventoryService::class);
+    $networkService =
+       $dfpServices->get($session, NetworkService::class);
+
+    // Get the effective root ad unit's ID for all ad units to be created under.
+    $network = $networkService->getCurrentNetwork();
+    $effectiveRootAdUnitId = $network->getEffectiveRootAdUnitId();
+
+    $advanced_options = get_option('dfp_manager_advanced_settings');
+    $adUnits = new \ArrayObject(); // Don't delete the \ (Accessing global classes)
+    $ad_slots = query_posts('post_type=ad_slot');
+
+    foreach ( $ad_slots as $ad_slot ) {
+      $adUnit = new AdUnit();
+      $adUnit->setName( $advanced_options['ad_units_prefix'].
+                        ('ID').'_'.
+                        ('Type').'_'.
+                        ($ad_slot->post_title)
+                      );
+      $adUnit->setAdUnitCode( $advanced_options['ad_units_prefix'].
+                        ('ID').'_'.
+                        ('Type').'_'.
+                        ($ad_slot->post_title)
+                      );
+      $adUnit->setParentId($effectiveRootAdUnitId);
+      $adUnit->setDescription('Title');
+      $adUnit->setTargetWindow(AdUnitTargetWindow::BLANK);
+      //$adUnit->setAdUnitSizes();
+      $adUnits->append($adUnit);
+    }
+
+    echo(var_dump($adUnits));
+
+  }
+
   public static function main() {
 
     // Generate a refreshable OAuth2 credential for authentication.
-    $options = get_option('dfp_manager_general_settings');
+    $general_options = get_option('dfp_manager_general_settings');
     $oAuth2Credential = (new OAuth2TokenBuilder())
-        ->withJsonKeyFilePath($options['api_key'])
-        ->withScopes($options['scopes'])
+        ->withJsonKeyFilePath($general_options['api_key'])
+        ->withScopes($general_options['scopes'])
         ->build();
 
     // Construct an API session configured from a properties file and the OAuth2
     // credentials above.
     $session = (new DfpSessionBuilder())
-        ->withNetworkCode($options['network_code'])
-        ->withApplicationName($options['application_name'])
+        ->withNetworkCode($general_options['network_code'])
+        ->withApplicationName($general_options['application_name'])
         ->withOAuth2Credential($oAuth2Credential)
         ->build();
 
-    var_dump($session);
+    self::createAdUnit(new DfpServices(), $session);
 
   }
 }
