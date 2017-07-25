@@ -69,7 +69,17 @@ class DFPApi {
     // Create the ad units on the server.
     $adUnits = $inventoryService->createAdUnits([$adUnit]);
 
+    // Print out some information for each created ad unit.
+    foreach ($adUnits as $i => $adUnit) {
+      printf(
+          "%d) An ad unit with ID '%s' and name '%s' was created.\n",
+          $i,
+          $adUnit->getId(),
+          $adUnit->getName()
+      );
+    }
 
+    printf("Created %d ad unit(s).\n", count($adUnits));
   }
 
   public static function main() {
