@@ -4,6 +4,13 @@ Please don't use this for the moment...
 It's still under development.  
 Thank you =)
 
+## Installation
+
+## Update
+You can use the awesome plugin [github-updater](https://github.com/afragen/github-updater/) to keep *dfp-manager* up to date.  
+
+> Note: I also plan to release this plugin on [Wordpress.org plugins repository](https://wordpress.org/plugins/) in a near future
+
 ## CLI Example
 
 > Don't forget to register your *Network Code*, *Application Name* and to upload your credentials JSON file in the **General Settings** page.  
