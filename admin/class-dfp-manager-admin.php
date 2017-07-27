@@ -112,7 +112,7 @@ class Dfp_Manager_Admin {
     #                           #
     ###########################//
 
-    $labels = array(
+    $ad_slot_labels = array(
       'name' => 'Ad Slots',
       'singular_name' => 'Ad Slot',
       'add_new' => 'Add new',
@@ -130,8 +130,8 @@ class Dfp_Manager_Admin {
 
 
 
-    $args = array(
-      'labels' => $labels,
+    $ad_slot_args = array(
+      'labels' => $ad_slot_labels,
       'public' => false,
       'publicly_queryable' => false,
       'show_ui' => true,
@@ -148,7 +148,39 @@ class Dfp_Manager_Admin {
       'supports' => array( 'title' )
       );
 
-    register_post_type( 'ad_slot', $args );
+    register_post_type( 'ad_slot', $ad_slot_args );
+
+
+    //###########################
+    #                           #
+    #     Ad Size Settings      #   
+    #                           #
+    ###########################//
+
+    $ad_size_labels = array(
+      'name' => 'Ad Sizes',
+      'singular_name' => 'Ad Size',
+      'search_items' => 'Search Ad Size',
+      'all_items' => 'All Ad Sizes',
+      'parent_item' => null,
+      'parent_item_colon' => null,
+      'edit_item' => 'Edit Ad Size',
+      'update_item' => 'Update Ad Size',
+      'add_new_item' => 'Add new Ad Size',
+      'new_item_name' => 'New Ad Size Name',
+      'menu_name' => 'Ad Sizes'
+    );
+
+    $ad_size_args = array(
+      'hierarchical' => false,
+      'labels' => $ad_size_labels,
+      'show_ui' => true,
+      'show_admin_column' => true,
+      'query_var' => false,
+      'rewrite' => array( 'slug' => 'ad_size' ),
+    );
+
+    register_taxonomy( 'ad_size', array('ad_slot'), $ad_size_args );
 
 
 		//###########################
@@ -223,6 +255,10 @@ class Dfp_Manager_Admin {
 
 		remove_submenu_page('admin.php?post_type=ad_slot', 'admin.php?post_type=ad_slot');
 	}
+
+  public function custom_taxonomy() {
+    add_submenu_page( 'admin.php?post_type=ad_slot', 'Ad Sizes', 'Ad Sizes', 'manage_options', 'edit-tags.php?taxonomy=ad_size', NULL);
+  }
 
   public function settings() {
     $view_general = add_submenu_page('admin.php?post_type=ad_slot', 'General', 'General Settings', 'manage_options', 'general-settings', array(&$this, 'load_view'));
