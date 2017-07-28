@@ -140,12 +140,13 @@ class Dfp_Manager_Admin {
       'show_in_nav_menus' => true,
       'can_export' => true,
       'query_var' => true,
-      'rewrite' => array( 'slug' => 'ad_slot' ),
+      //'rewrite' => array( 'slug' => 'ad_slot' ),
       'capability_type' => 'post',
       'has_archive' => false,
       'hierarchical' => false,
       'menu_position' => null,
-      'supports' => array( 'title' )
+      'supports' => array( 'title' ),
+      'taxonomies' => array( 'ad_size' )
       );
 
     register_post_type( 'ad_slot', $ad_slot_args );
@@ -180,7 +181,7 @@ class Dfp_Manager_Admin {
       'rewrite' => array( 'slug' => 'ad_size' ),
     );
 
-    register_taxonomy( 'ad_size', array('ad_slot'), $ad_size_args );
+    register_taxonomy( 'ad_size', 'ad_slot', $ad_size_args );
 
 
 		//###########################
@@ -249,22 +250,22 @@ class Dfp_Manager_Admin {
 
 	public function custom_post() {
 
-    add_menu_page( 'DFP Manager', 'DFP Manager', 'manage_options', 'admin.php?post_type=ad_slot', NULL );
-    add_submenu_page( 'admin.php?post_type=ad_slot', 'Ad Slots', 'Ad Slots', 'manage_options', 'edit.php?post_type=ad_slot', NULL);
-    add_submenu_page( 'admin.php?post_type=ad_slot', 'New Ad Slot', 'New Ad Slot', 'manage_options', 'post-new.php?post_type=ad_slot', NULL );
+    add_menu_page( 'DFP Manager', 'DFP Manager', 'manage_options', 'ad_slot', NULL );
+    add_submenu_page( 'ad_slot', 'Ad Slots', 'Ad Slots', 'manage_options', 'edit.php?post_type=ad_slot', NULL);
+    add_submenu_page( 'ad_slot', 'New Ad Slot', 'New Ad Slot', 'manage_options', 'post-new.php?post_type=ad_slot', NULL );
 
-		remove_submenu_page('admin.php?post_type=ad_slot', 'admin.php?post_type=ad_slot');
+		remove_submenu_page('ad_slot', 'ad_slot');
 	}
 
   public function custom_taxonomy() {
-    add_submenu_page( 'admin.php?post_type=ad_slot', 'Ad Sizes', 'Ad Sizes', 'manage_options', 'edit-tags.php?taxonomy=ad_size', NULL);
+    add_submenu_page( 'ad_slot', 'Ad Sizes', 'Ad Sizes', 'manage_options', 'edit-tags.php?taxonomy=ad_size&post_type=ad_slot', NULL);
   }
 
   public function settings() {
-    $view_general = add_submenu_page('admin.php?post_type=ad_slot', 'General', 'General Settings', 'manage_options', 'general-settings', array(&$this, 'load_view'));
+    $view_general = add_submenu_page('ad_slot', 'General', 'General Settings', 'manage_options', 'general-settings', array(&$this, 'load_view'));
     $this->views[$view_general] = 'dfp-manager-admin-general';
 
-    $view_advanced = add_submenu_page('admin.php?post_type=ad_slot', 'Advanced', 'Advanced Settings', 'manage_options', 'advanced-settings', array(&$this, 'load_view'));
+    $view_advanced = add_submenu_page('ad_slot', 'Advanced', 'Advanced Settings', 'manage_options', 'advanced-settings', array(&$this, 'load_view'));
     $this->views[$view_advanced] = 'dfp-manager-admin-advanced';
   }
 
@@ -282,6 +283,22 @@ class Dfp_Manager_Admin {
         </style>
       ";
     }
+  }
+
+  function set_current_menu( $parent_file ) {
+    global $submenu_file, $current_screen, $pagenow;
+
+    # Set the submenu as active/current while anywhere in your Custom Post Type (nwcm_news)
+    if ( $current_screen->post_type == 'ad_slot' ) {
+      if ( $pagenow == 'post.php' ) {
+        $submenu_file = 'edit.php?post_type=' . $current_screen->post_type;
+      }
+      if ( $pagenow == 'edit-tags.php' ) {
+        $submenu_file = 'edit-tags.php?taxonomy=ad_size&post_type=' . $current_screen->post_type;
+      }
+      $parent_file = 'ad_slot';
+    }
+    return $parent_file;
   }
 
   //###########################
