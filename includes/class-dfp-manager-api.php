@@ -14,10 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\AdsApi\Examples\Dfp\v201702\InventoryService;
 
-require      '../vendor/autoload.php';
-require_once '../../../../wp-load.php';
+// namespace Google\AdsApi\Examples\Dfp\v201702\InventoryService;
+
+define( 'WP_USE_THEMES', false );
+// require_once '../../../../wp-load.php';
+require plugin_dir_path( __FILE__ ) . '../vendor/autoload.php';
 
 use Google\AdsApi\Common\OAuth2TokenBuilder;
 use Google\AdsApi\Dfp\DfpServices;
@@ -31,7 +33,7 @@ use Google\AdsApi\Dfp\v201702\InventoryService;
 use Google\AdsApi\Dfp\v201702\NetworkService;
 use Google\AdsApi\Dfp\v201702\Size;
 
-class DFPApi {
+class Dfp_Manager_Api {
 
   public static function createAdUnit(DfpServices $dfpServices, DfpSession $session) {
     $inventoryService =
@@ -63,10 +65,15 @@ class DFPApi {
       $adUnit->setDescription('Title');
       $adUnit->setTargetWindow(AdUnitTargetWindow::BLANK);
       //$adUnit->setAdUnitSizes();
-      $adUnits->append($adUnit);
+
+      // var_dump(get_post_types());
+      wp_die( var_dump(get_taxonomies()) );
+      // var_dump($ad_slot->ID);
+
+      // $adUnits->append($adUnit);
     }
 
-    echo(var_dump($adUnits));
+    // echo(var_dump($adUnits));
 
   }
 
@@ -92,4 +99,4 @@ class DFPApi {
   }
 }
 
-DFPApi::main();
+// Dfp_Manager_Api::main();
