@@ -29,6 +29,9 @@ Created 1 ad unit(s).
 ## Todo
 
 + Implementation: 
+  - Background job for Ad Units creation
+  - Populate Ad Sizes on plugin installation
+  - Add dfp JS script loader to header
   - DFP endpoint (optional)
   - OAuth2 impersonated email
   - [Installed Application] or [Web Application Flow]
