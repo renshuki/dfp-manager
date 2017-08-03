@@ -51,6 +51,14 @@ function deactivate_dfp_manager() {
 register_activation_hook( __FILE__, 'activate_dfp_manager' );
 register_deactivation_hook( __FILE__, 'deactivate_dfp_manager' );
 
+
+function api_dfp_manager() {
+  require_once plugin_dir_path( __FILE__ ) . 'includes/class-dfp-manager-api.php';
+  Dfp_Manager_Api::main();
+}
+
+add_action( 'publish_post', 'api_dfp_manager' );
+
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
