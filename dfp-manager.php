@@ -57,7 +57,9 @@ function api_dfp_manager() {
   Dfp_Manager_Api::main(get_the_ID(), get_post());
 }
 
-add_action( 'publish_'.$_POST['post_type'], 'api_dfp_manager' );
+if( isset($_POST['post_type']) && $_POST['post_type'] != 'ad_slot' ) {
+  add_action( 'publish_'.$_POST['post_type'], 'api_dfp_manager' );
+}
 
 /**
  * The core plugin class that is used to define internationalization,

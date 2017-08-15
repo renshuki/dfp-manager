@@ -35,7 +35,11 @@ use Google\AdsApi\Dfp\v201702\Size;
 
 class Dfp_Manager_Api {
 
-  public static function createAdUnit( DfpServices $dfpServices, DfpSession $session, $ID, $title, $type ) {
+  public static function createAdUnit( DfpServices $dfpServices, DfpSession $session) {
+
+    $post_id = get_the_ID();
+    $post_title = get_the_title();
+    $post_type = get_post_type();
 
     $inventoryService =
        $dfpServices->get($session, InventoryService::class);
@@ -53,25 +57,23 @@ class Dfp_Manager_Api {
     foreach ( $ad_slots as $ad_slot ) {
       $adUnit = new AdUnit();
       $adUnit->setName( $advanced_options['ad_units_prefix'].
-                        $ID.'_'.
-                        $type.'_'.
+                        $post_id.'_'.
+                        $post_type.'_'.
                         ($ad_slot->post_title)
                       );
       $adUnit->setAdUnitCode( $advanced_options['ad_units_prefix'].
-                        $ID.'_'.
-                        $type.'_'.
+                        $post_id.'_'.
+                        $post_type.'_'.
                         ($ad_slot->post_title)
                       );
       $adUnit->setParentId($effectiveRootAdUnitId);
-      $adUnit->setDescription($title);
+      $adUnit->setDescription($post_title);
       $adUnit->setTargetWindow(AdUnitTargetWindow::BLANK);
       //$adUnit->setAdUnitSizes();
 
-      // var_dump(get_post_types());
+      // wp_die(var_dump(get_the_id()));
       // wp_die( var_dump(get_taxonomies()) );
-      //wp_die(var_dump($ad_slot));
-      wp_die(var_dump($adUnit));
-      // var_dump($ad_slot->ID);
+      wp_die( var_dump($adUnit) );
 
       // $adUnits->append($adUnit);
     }
@@ -80,10 +82,7 @@ class Dfp_Manager_Api {
 
   }
 
-  public static function main($ID, $post) {
-
-    $title = $post->post_title;
-    $type = $post->post_type;
+  public static function main() {
 
     // Generate a refreshable OAuth2 credential for authentication.
     $general_options = get_option('dfp_manager_general_settings');
@@ -100,7 +99,7 @@ class Dfp_Manager_Api {
         ->withOAuth2Credential($oAuth2Credential)
         ->build();
 
-    self::createAdUnit(new DfpServices(), $session, $ID, $title, $type);
+    self::createAdUnit(new DfpServices(), $session);
 
   }
 }
