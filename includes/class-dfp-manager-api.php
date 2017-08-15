@@ -36,10 +36,17 @@ use Google\AdsApi\Dfp\v201702\Size;
 class Dfp_Manager_Api {
 
   public static function createAdUnit( DfpServices $dfpServices, DfpSession $session) {
-
+    // Publishing post ID
     $post_id = get_the_ID();
+
+    // Publishing post title
     $post_title = get_the_title();
+
+    // Publishing post type
     $post_type = get_post_type();
+
+    // Array to store all Ad Unit Objects
+    $adUnits = new \ArrayObject(); // Don't delete the \ (Accessing global classes)
 
     $inventoryService =
        $dfpServices->get($session, InventoryService::class);
@@ -50,10 +57,13 @@ class Dfp_Manager_Api {
     $network = $networkService->getCurrentNetwork();
     $effectiveRootAdUnitId = $network->getEffectiveRootAdUnitId();
 
+    // Get all Advanced Options
     $advanced_options = get_option('dfp_manager_advanced_settings');
-    $adUnits = new \ArrayObject(); // Don't delete the \ (Accessing global classes)
+
+    // Get all Ad Slots
     $ad_slots = query_posts('post_type=ad_slot');
 
+    // Loop over all Ad Slots
     foreach ( $ad_slots as $ad_slot ) {
       $adUnit = new AdUnit();
       $adUnit->setName( $advanced_options['ad_units_prefix'].
@@ -70,12 +80,15 @@ class Dfp_Manager_Api {
       $adUnit->setDescription($post_title);
       $adUnit->setTargetWindow(AdUnitTargetWindow::BLANK);
 
-      // Set sizes for the Ad Unit
+      // Get terms(ad_size) for the Ad Slot
       $terms = wp_get_post_terms($ad_slot->ID, 'ad_size');
+
+      // Create an array to store all the sizes for the Ad Slot
       $adUnitSizes = array();
 
+      // Loop over all terms (ad_size) of the Ad Slot
       foreach ($terms as $term) {
-        if( strpos($term->slug, 'x') !== false ){ // Check if slug contains x to split size
+        if( strpos($term->slug, 'x') !== false ){ // Check if slug contains x to split sizes (width and height)
           $ar_term = explode('x', $term->slug);
           $width = $ar_term[0];
           $height = $ar_term[1];
@@ -91,7 +104,24 @@ class Dfp_Manager_Api {
       $adUnits->append($adUnit);
     }
 
-    wp_die(var_dump($adUnits));
+    // Check if Ad Unit already exists
+    $pageSize = StatementBuilder::SUGGESTED_PAGE_LIMIT;
+    $statementBuilder = (new StatementBuilder())
+            ->where("Name LIKE '".$advanced_options['ad_units_prefix']."_".$post_id."_".$post_type."_%' and status = :status")
+            ->limit($pageSize)
+            ->withBindVariableValue('status', InventoryStatus::ACTIVE);
+
+    $page = $inventoryService->getAdUnitsByStatement($statementBuilder->toStatement());
+
+    if ($page->getResults() == null) {
+      // Create the ad units on the server.
+      // $adUnits = $inventoryService->createAdUnits($adUnits);
+    }
+    else {
+      // Error
+    }
+
+    // wp_die(var_dump($adUnits));
   }
 
   public static function createAdUnitSize($width, $height) {
