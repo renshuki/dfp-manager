@@ -57,7 +57,7 @@ function api_dfp_manager() {
   Dfp_Manager_Api::main(get_the_ID(), get_post());
 }
 
-add_action( 'publish_post', 'api_dfp_manager' );
+add_action( 'publish_'.$_POST['post_type'], 'api_dfp_manager' );
 
 /**
  * The core plugin class that is used to define internationalization,
