@@ -54,7 +54,7 @@ register_deactivation_hook( __FILE__, 'deactivate_dfp_manager' );
 
 function api_dfp_manager() {
   require_once plugin_dir_path( __FILE__ ) . 'includes/class-dfp-manager-api.php';
-  Dfp_Manager_Api::main();
+  Dfp_Manager_Api::main(get_the_ID(), get_post());
 }
 
 add_action( 'publish_post', 'api_dfp_manager' );
