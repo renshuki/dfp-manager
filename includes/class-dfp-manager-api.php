@@ -69,17 +69,41 @@ class Dfp_Manager_Api {
       $adUnit->setParentId($effectiveRootAdUnitId);
       $adUnit->setDescription($post_title);
       $adUnit->setTargetWindow(AdUnitTargetWindow::BLANK);
-      //$adUnit->setAdUnitSizes();
 
-      // wp_die(var_dump(get_the_id()));
-      // wp_die( var_dump(get_taxonomies()) );
-      wp_die( var_dump($adUnit) );
+      // Set sizes for the Ad Unit
+      $terms = wp_get_post_terms($ad_slot->ID, 'ad_size');
+      $adUnitSizes = array();
 
-      // $adUnits->append($adUnit);
+      foreach ($terms as $term) {
+        if( strpos($term->slug, 'x') !== false ){ // Check if slug contains x to split size
+          $ar_term = explode('x', $term->slug);
+          $width = $ar_term[0];
+          $height = $ar_term[1];
+          $adUnitSize = self::createAdUnitSize($width, $height);
+
+          array_push($adUnitSizes, $adUnitSize);
+        }
+      }
+
+      $adUnit->setAdUnitSizes($adUnitSizes);
+      
+      // Push the Ad Unit to the Ad Units array
+      $adUnits->append($adUnit);
     }
 
-    // echo(var_dump($adUnits));
+    wp_die(var_dump($adUnits));
+  }
 
+  public static function createAdUnitSize($width, $height) {
+    $size = new Size();
+    $size->setWidth($width);
+    $size->setHeight($height);
+    $size->setIsAspectRatio(false);
+    $adUnitSize = new AdUnitSize();
+    $adUnitSize->setSize($size);
+    $adUnitSize->setEnvironmentType(EnvironmentType::BROWSER);
+
+    return $adUnitSize;
   }
 
   public static function main() {
