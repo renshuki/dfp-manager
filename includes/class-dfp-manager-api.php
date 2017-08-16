@@ -25,11 +25,13 @@ use Google\AdsApi\Common\OAuth2TokenBuilder;
 use Google\AdsApi\Dfp\DfpServices;
 use Google\AdsApi\Dfp\DfpSession;
 use Google\AdsApi\Dfp\DfpSessionBuilder;
+use Google\AdsApi\Dfp\Util\v201702\StatementBuilder;
 use Google\AdsApi\Dfp\v201702\AdUnit;
 use Google\AdsApi\Dfp\v201702\AdUnitSize;
 use Google\AdsApi\Dfp\v201702\AdUnitTargetWindow;
 use Google\AdsApi\Dfp\v201702\EnvironmentType;
 use Google\AdsApi\Dfp\v201702\InventoryService;
+use Google\AdsApi\Dfp\v201702\InventoryStatus;
 use Google\AdsApi\Dfp\v201702\NetworkService;
 use Google\AdsApi\Dfp\v201702\Size;
 
@@ -121,7 +123,7 @@ class Dfp_Manager_Api {
       // Error
     }
 
-    // wp_die(var_dump($adUnits));
+    wp_die(var_dump($adUnits));
   }
 
   public static function createAdUnitSize($width, $height) {
