@@ -47,8 +47,8 @@ class Dfp_Manager_Api {
     // Publishing post type
     $post_type = get_post_type();
 
-    // Array to store all Ad Unit Objects
-    $adUnits = new \ArrayObject(); // Don't delete the \ (Accessing global classes)
+    // Array to store all Ad Units
+    $adUnits = array();
 
     $inventoryService =
        $dfpServices->get($session, InventoryService::class);
@@ -103,7 +103,7 @@ class Dfp_Manager_Api {
       $adUnit->setAdUnitSizes($adUnitSizes);
       
       // Push the Ad Unit to the Ad Units array
-      $adUnits->append($adUnit);
+      array_push($adUnits, $adUnit);
     }
 
     // Check if Ad Unit already exists
@@ -117,13 +117,14 @@ class Dfp_Manager_Api {
 
     if ($page->getResults() == null) {
       // Create the ad units on the server.
-      // $adUnits = $inventoryService->createAdUnits($adUnits);
+      $adUnits = $inventoryService->createAdUnits($adUnits);
     }
     else {
       // Error
     }
 
-    wp_die(var_dump($adUnits));
+    // Debug
+    // wp_die(var_dump($adUnits));
   }
 
   public static function createAdUnitSize($width, $height) {
