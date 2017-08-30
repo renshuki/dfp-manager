@@ -100,4 +100,8 @@ class Dfp_Manager_Public {
 
 	}
 
+	public function responsive_ads_header() {
+    
+  }
+
 }

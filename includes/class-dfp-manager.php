@@ -180,6 +180,7 @@ class Dfp_Manager {
 
 		$plugin_public = new Dfp_Manager_Public( $this->get_plugin_name(), $this->get_version() );
 
+		$this->loader->add_action( 'wp_head', $plugin_public, 'responsive_ads_header' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
