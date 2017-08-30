@@ -14,7 +14,7 @@
  */
 
 // Constants
-define("UPLOAD_FOLDER",     "dfp_manager_keys");
+define("UPLOAD_FOLDER", "dfp_manager_keys");
 
 /**
  * The core plugin class.
