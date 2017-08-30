@@ -467,7 +467,7 @@ class Dfp_Manager_Admin {
     $post_id     = $latest_post[0]->ID;
     $post_type   = !empty($ad_units_include_post_type) ? '_'.$latest_post[0]->post_type : '';
 
-    echo($prefix .'_'. $post_id . $post_type);
+    echo($prefix . $post_id . $post_type);
     echo "<p class='description'>(This is an example where post_id is {$post_id})</p>";
   }
 

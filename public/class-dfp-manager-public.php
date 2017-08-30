@@ -101,7 +101,38 @@ class Dfp_Manager_Public {
 	}
 
 	public function responsive_ads_header() {
-    
+    $args = array(
+      'post_type' => 'ad_slot'
+    );
+    $ad_slots = get_posts($args);
+    $general_options = get_option('dfp_manager_general_settings');
+    $advanced_options = get_option('dfp_manager_advanced_settings');
+
+    echo("
+    	<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+      <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+      </script>
+    ");
+
+    echo("
+      <script>
+        googletag.cmd.push(function() {
+    "); 
+
+    foreach ($ad_slots as $ad_slot) {
+      echo("googletag.defineSlot('/".$general_options['network_code']."/".$advanced_options['ad_units_prefix'].get_the_ID()."_".get_post_type()."_".($ad_slot->post_title)."', [[500, 500], [100, 45]], 'div-gpt-ad-1504076387237-0').addService(googletag.pubads());\n");
+    }
+
+    echo("
+          googletag.pubads().enableSyncRendering();
+          googletag.pubads().enableSingleRequest();
+          googletag.pubads().collapseEmptyDivs();
+          googletag.enableServices();
+        });
+      </script>
+    ");
   }
 
 }

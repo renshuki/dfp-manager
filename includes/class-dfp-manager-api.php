@@ -68,12 +68,12 @@ class Dfp_Manager_Api {
     // Loop over all Ad Slots
     foreach ( $ad_slots as $ad_slot ) {
       $adUnit = new AdUnit();
-      $adUnit->setName( $advanced_options['ad_units_prefix'].'_'.
+      $adUnit->setName( $advanced_options['ad_units_prefix'].
                         $post_id.'_'.
                         $post_type.'_'.
                         ($ad_slot->post_title)
                       );
-      $adUnit->setAdUnitCode( $advanced_options['ad_units_prefix'].'_'.
+      $adUnit->setAdUnitCode( $advanced_options['ad_units_prefix'].
                         $post_id.'_'.
                         $post_type.'_'.
                         ($ad_slot->post_title)
@@ -109,7 +109,7 @@ class Dfp_Manager_Api {
     // Check if Ad Unit already exists
     $pageSize = StatementBuilder::SUGGESTED_PAGE_LIMIT;
     $statementBuilder = (new StatementBuilder())
-            ->where("Name LIKE '".$advanced_options['ad_units_prefix']."_".$post_id."_".$post_type."_%' and status = :status")
+            ->where("Name LIKE '".$advanced_options['ad_units_prefix'].$post_id."_".$post_type."_%' and status = :status")
             ->limit($pageSize)
             ->withBindVariableValue('status', InventoryStatus::ACTIVE);
 
