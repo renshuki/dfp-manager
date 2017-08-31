@@ -175,9 +175,10 @@ class Dfp_Manager_Admin {
     $ad_size_args = array(
       'hierarchical' => false,
       'labels' => $ad_size_labels,
+      'public' => true,
+      'query_var' => true,
       'show_ui' => true,
       'show_admin_column' => true,
-      'query_var' => false,
       'rewrite' => array( 'slug' => 'ad_size' ),
     );
 
@@ -527,5 +528,4 @@ class Dfp_Manager_Admin {
     $mime_types['json'] = 'application/json'; // Adding .json extension
     return $mime_types;
   }
-
 }

@@ -100,39 +100,133 @@ class Dfp_Manager_Public {
 
 	}
 
-	public function responsive_ads_header() {
-    $args = array(
-      'post_type' => 'ad_slot'
+	public function init() {
+
+		//###########################
+		#                           #
+		#     Ad Slots Settings     #   
+		#                           #
+		###########################//
+
+		$ad_slot_labels = array(
+		  'name' => 'Ad Slots',
+		  'singular_name' => 'Ad Slot',
+		  'add_new' => 'Add new',
+		  'add_new_item' => 'New Ad Slot',
+		  'edit_item' => 'Edit Ad Slot',
+		  'new_item' => 'New Ad Slot',
+		  'all_items' => 'All Ad Slots',
+		  'view_item' => 'View Ad Slot',
+		  'search_item' => 'Search Ad Slots',
+		  'not_found' => 'No ad slot found',
+		  'not_found_in_trash' => 'No ad slot found in Trash',
+		  'parent_item_colon' => '',
+		  'menu_name' => 'Ad Slots'
+		);
+
+
+
+		$ad_slot_args = array(
+		  'labels' => $ad_slot_labels,
+		  'public' => false,
+		  'publicly_queryable' => false,
+		  'show_ui' => true,
+		  'show_in_menu' => false,
+		  'show_in_admin_bar' => true,
+		  'show_in_nav_menus' => true,
+		  'can_export' => true,
+		  'query_var' => true,
+		  //'rewrite' => array( 'slug' => 'ad_slot' ),
+		  'capability_type' => 'post',
+		  'has_archive' => false,
+		  'hierarchical' => false,
+		  'menu_position' => null,
+		  'supports' => array( 'title' ),
+		  'taxonomies' => array( 'ad_size' )
+		  );
+
+		register_post_type( 'ad_slot', $ad_slot_args );
+
+		//###########################
+    #                           #
+    #     Ad Size Settings      #   
+    #                           #
+    ###########################//
+
+    $ad_size_labels = array(
+      'name' => 'Ad Sizes',
+      'singular_name' => 'Ad Size',
+      'search_items' => 'Search Ad Size',
+      'all_items' => 'All Ad Sizes',
+      'parent_item' => null,
+      'parent_item_colon' => null,
+      'edit_item' => 'Edit Ad Size',
+      'update_item' => 'Update Ad Size',
+      'add_new_item' => 'Add new Ad Size',
+      'new_item_name' => 'New Ad Size Name',
+      'menu_name' => 'Ad Sizes'
     );
-    $ad_slots = get_posts($args);
-    $general_options = get_option('dfp_manager_general_settings');
-    $advanced_options = get_option('dfp_manager_advanced_settings');
 
-    echo("
-    	<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
-      <script>
-        var googletag = googletag || {};
-        googletag.cmd = googletag.cmd || [];
-      </script>
-    ");
+    $ad_size_args = array(
+      'hierarchical' => false,
+      'labels' => $ad_size_labels,
+      'public' => true,
+      'query_var' => true,
+      'show_ui' => true,
+      'show_admin_column' => true,
+      'rewrite' => array( 'slug' => 'ad_size' ),
+    );
 
-    echo("
-      <script>
-        googletag.cmd.push(function() {
-    "); 
+    register_taxonomy( 'ad_size', 'ad_slot', $ad_size_args );
 
-    foreach ($ad_slots as $ad_slot) {
-      echo("googletag.defineSlot('/".$general_options['network_code']."/".$advanced_options['ad_units_prefix'].get_the_ID()."_".get_post_type()."_".($ad_slot->post_title)."', [[500, 500], [100, 45]], 'div-gpt-ad-1504076387237-0').addService(googletag.pubads());\n");
-    }
+	}
 
-    echo("
-          googletag.pubads().enableSyncRendering();
-          googletag.pubads().enableSingleRequest();
-          googletag.pubads().collapseEmptyDivs();
-          googletag.enableServices();
-        });
-      </script>
-    ");
-  }
+	public function responsive_ads_header() {
+	  $args = array(
+	    'post_type' => 'ad_slot'
+	  );
+	  $ad_slots = get_posts($args);
+	  $general_options = get_option('dfp_manager_general_settings');
+	  $advanced_options = get_option('dfp_manager_advanced_settings');
 
+	  echo("
+	    <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+	    <script>
+	      var googletag = googletag || {};
+	      googletag.cmd = googletag.cmd || [];
+	    </script>
+	  ");
+
+	  echo("
+	    <script>
+	      googletag.cmd.push(function() {
+	  ");
+
+	  foreach ($ad_slots as $ad_slot) {
+	    $terms = wp_get_post_terms($ad_slot->ID, 'ad_size');
+	    $ad_sizes = [];
+
+	    foreach ($terms as $term) {
+	      if( strpos($term->slug, 'x') !== false ){
+	        $ar_term = explode('x', $term->slug);
+	        $width = (int)$ar_term[0];
+	        $height = (int)$ar_term[1];
+	        $ad_size = array($width, $height);
+
+	        array_push($ad_sizes, $ad_size);
+	      }
+	    }
+
+	    echo("googletag.defineSlot('/".$general_options['network_code']."/".$advanced_options['ad_units_prefix'].get_the_ID()."_".get_post_type()."_".($ad_slot->post_title)."', ". json_encode($ad_sizes) .", 'div-gpt-ad-1504076387237-0').addService(googletag.pubads());\n");
+	  }
+
+	  echo("
+	        googletag.pubads().enableSyncRendering();
+	        googletag.pubads().enableSingleRequest();
+	        googletag.pubads().collapseEmptyDivs();
+	        googletag.enableServices();
+	      });
+	    </script>
+	  ");
+	}
 }
