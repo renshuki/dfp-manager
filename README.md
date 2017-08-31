@@ -87,27 +87,26 @@ Coming soon...
 
 ## Todos
 
-+ Implementation: 
-  - Custom post filtering function in advanced settings
-  - Add DFP code to header 
-  - Background job for Ad Units creation
-  - Populate Ad Sizes on plugin installation
-  - Add dfp JS script loader to header
-  - DFP endpoint (optional)
-  - OAuth2 impersonated email
-  - [Installed Application] or [Web Application Flow]
-  - Client ID
-  - Client secret
-  - Refresh token
-  - SOAP compression level and WSDL cache
-  - PROXY Host/Port/User/Password
-  - LOGGING: log path / log level / report downloader
+  + Code refactoring (like taxonomy registration and custom_post)
+  + Add a plugin share hook (public + private)
+  + Add an option to custom ad banners name for responsive_ads_header
+  + Clean up all the stuff on plugin uninstall (like DFP API key)
 
-+ Advanced settings
-+ Ad Slots sizes
-> Example:  
-> add_action('publish_' . $_POST['post_type'], array($myDFP, 'main'), 10, 2);
-+ Hooks for ad-units creation (publish, save or other ideas?)
+  + Implementation: 
+    - Custom post filtering function in advanced settings
+    - Add DFP code to header 
+    - Background job for Ad Units creation
+    - Populate Ad Sizes on plugin installation
+    - Add dfp JS script loader to header
+    - DFP endpoint (optional)
+    - OAuth2 impersonated email
+    - [Installed Application] or [Web Application Flow]
+    - Client ID
+    - Client secret
+    - Refresh token
+    - SOAP compression level and WSDL cache
+    - PROXY Host/Port/User/Password
+    - LOGGING: log path / log level / report downloader
 
 ## FAQ  
 
