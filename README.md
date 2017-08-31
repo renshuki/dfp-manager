@@ -87,21 +87,21 @@ Coming soon...
 
 ## Todos
   
-  + Add an option to custom ad banners name for responsive_ads_header
-  + Code refactoring (like taxonomy registration and custom_post)
-  + Custom post filtering function in advanced settings
+  - [ ] Add an option to custom ad banners name for responsive_ads_header
+  - [ ] Code refactoring (like taxonomy registration and custom_post)
+  - [ ] Custom post filtering function in advanced settings
     - List custom posts and check the ones you want to use DFP Manager
     - This will enable/disable publish hook for these custom posts
-  + Add a plugin share hook (public + private)
-  + Clean up all the stuff on plugin uninstall (like DFP API key)
-  + Ad Unit menu item in DFP Manager to list them (remotely from DFP)
-  + Post: DFP Manager metabox info (Ad Unit already created or not? Present in a DFP Placement?)
-  + Worpdress shortcode for DFP Manager
-  + Background job for Ad Units creation
-  + Populate Ad Sizes on plugin installation
-  + [Installed Application] or [Web Application Flow] checkbox
+  - [ ] Add a plugin share hook (public + private)
+  - [ ] Clean up all the stuff on plugin uninstall (like DFP API key)
+  - [ ] Ad Unit menu item in DFP Manager to list them (remotely from DFP)
+  - [ ] Post: DFP Manager metabox info (Ad Unit already created or not? Present in a DFP Placement?)
+  - [ ] Worpdress shortcode for DFP Manager
+  - [ ] Background job for Ad Units creation
+  - [ ] Populate Ad Sizes on plugin installation
+  - [ ] [Installed Application] or [Web Application Flow] checkbox
     - Should disable "Client ID", "Client Secret" and "Refresh Token" if not checked
-  + Add (optional) to Endpoint
+  - [ ] Add (optional) to Endpoint
 
 ## FAQ  
 
