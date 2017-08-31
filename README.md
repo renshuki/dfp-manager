@@ -86,27 +86,22 @@ Coming soon...
 Coming soon...
 
 ## Todos
-
-  + Code refactoring (like taxonomy registration and custom_post)
-  + Add a plugin share hook (public + private)
+  
   + Add an option to custom ad banners name for responsive_ads_header
+  + Code refactoring (like taxonomy registration and custom_post)
+  + Custom post filtering function in advanced settings
+    - List custom posts and check the ones you want to use DFP Manager
+    - This will enable/disable publish hook for these custom posts
+  + Add a plugin share hook (public + private)
   + Clean up all the stuff on plugin uninstall (like DFP API key)
-
-  + Implementation: 
-    - Custom post filtering function in advanced settings
-    - Add DFP code to header 
-    - Background job for Ad Units creation
-    - Populate Ad Sizes on plugin installation
-    - Add dfp JS script loader to header
-    - DFP endpoint (optional)
-    - OAuth2 impersonated email
-    - [Installed Application] or [Web Application Flow]
-    - Client ID
-    - Client secret
-    - Refresh token
-    - SOAP compression level and WSDL cache
-    - PROXY Host/Port/User/Password
-    - LOGGING: log path / log level / report downloader
+  + Ad Unit menu item in DFP Manager to list them (remotely from DFP)
+  + Post: DFP Manager metabox info (Ad Unit already created or not? Present in a DFP Placement?)
+  + Worpdress shortcode for DFP Manager
+  + Background job for Ad Units creation
+  + Populate Ad Sizes on plugin installation
+  + [Installed Application] or [Web Application Flow] checkbox
+    - Should disable "Client ID", "Client Secret" and "Refresh Token" if not checked
+  + Add (optional) to Endpoint
 
 ## FAQ  
 
