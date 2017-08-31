@@ -103,6 +103,17 @@ Coming soon...
     - Should disable "Client ID", "Client Secret" and "Refresh Token" if not checked
   - [ ] Add (optional) to Endpoint
 
+## Bedones  
+
+ - [x] General Settings
+ - [x] Advanced Settings
+ - [x] DFP configuration parameters
+ - [x] DFP Key upload
+ - [x] Ad Slots (custom post)
+ - [x] Ad Sizes (taxonomy)
+ - [x] Publish hook for Ad Units creation
+ - [x] `wp_header` hook for DFP JS script loader
+
 ## FAQ  
 
 Coming soon...
