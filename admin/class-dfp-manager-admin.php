@@ -242,6 +242,10 @@ class Dfp_Manager_Admin {
     add_settings_field('ad_units_prefix', 'Ad Units Prefix', array( $this , 'ad_units_prefix_setting' ), 'adunits_section', 'adunits_section');
     add_settings_field('ad_units_include_post_type', 'Include "Post type"', array( $this , 'ad_units_include_post_type_setting' ), 'adunits_section', 'adunits_section');
     add_settings_field('ad_units_result', 'Result', array( $this , 'ad_units_result_setting' ), 'adunits_section', 'adunits_section');
+
+    add_settings_section('adslots_section', 'Ad Slots Code', array( $this , 'adslots_section' ), 'adslots_section');
+
+    add_settings_field('ad_slots_prefix', 'Ad Slots Prefix', array( $this , 'ad_slots_prefix_setting' ), 'adslots_section', 'adslots_section');
 	}
 
 	public function load_view() {
@@ -329,7 +333,11 @@ class Dfp_Manager_Admin {
   }
 
   function adunits_section() {
-    echo '<p>Custom you ad unit code.</p>';
+    echo '<p>Custom your ad units codes.</p>';
+  }
+
+  function adslots_section() {
+    echo '<p>Custom your ad slots codes.</p>';
   }
 
   //###########################
@@ -449,7 +457,7 @@ class Dfp_Manager_Admin {
 
   function ad_units_prefix_setting(){
     $options = get_option('dfp_manager_advanced_settings');
-    echo "<input name='dfp_manager_advanced_settings[ad_units_prefix]' type='text' class='small-text' value='{$options['ad_units_prefix']}' />";  
+    echo "<input name='dfp_manager_advanced_settings[ad_units_prefix]' type='text' class='text' value='{$options['ad_units_prefix']}' />";  
   }
 
   function ad_units_include_post_type_setting(){
@@ -470,6 +478,11 @@ class Dfp_Manager_Admin {
 
     echo($prefix . $post_id . $post_type);
     echo "<p class='description'>(This is an example where post_id is {$post_id})</p>";
+  }
+
+  function ad_slots_prefix_setting(){
+    $options = get_option('dfp_manager_advanced_settings');
+    echo "<input name='dfp_manager_advanced_settings[ad_slots_prefix]' type='text' class='text' value='{$options['ad_slots_prefix']}' />";  
   }
 
   //###########################

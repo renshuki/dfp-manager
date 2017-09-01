@@ -217,7 +217,7 @@ class Dfp_Manager_Public {
 	      }
 	    }
 
-	    echo("googletag.defineSlot('/".$general_options['network_code']."/".$advanced_options['ad_units_prefix'].get_the_ID()."_".get_post_type()."_".($ad_slot->post_title)."', ". json_encode($ad_sizes) .", 'div-gpt-ad-1504076387237-0').addService(googletag.pubads());\n");
+	    echo("googletag.defineSlot('/".$general_options['network_code']."/".$advanced_options['ad_units_prefix'].get_the_ID()."_".get_post_type()."_".($ad_slot->post_title)."', ". json_encode($ad_sizes) .", '".$advanced_options['ad_slots_prefix'].($ad_slot->post_title)."').addService(googletag.pubads());\n");
 	  }
 
 	  echo("
