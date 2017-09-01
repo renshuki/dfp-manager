@@ -39,6 +39,8 @@ function activate_dfp_manager() {
 	Dfp_Manager_Activator::activate();
 }
 
+register_activation_hook( __FILE__, 'activate_dfp_manager' );
+
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-dfp-manager-deactivator.php
@@ -48,7 +50,6 @@ function deactivate_dfp_manager() {
 	Dfp_Manager_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_dfp_manager' );
 register_deactivation_hook( __FILE__, 'deactivate_dfp_manager' );
 
 

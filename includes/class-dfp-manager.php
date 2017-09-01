@@ -164,7 +164,7 @@ class Dfp_Manager {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );	
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'init', 100 );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'custom_post' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'custom_taxonomy' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'settings' );
@@ -184,9 +184,10 @@ class Dfp_Manager {
 
 		$plugin_public = new Dfp_Manager_Public( $this->get_plugin_name(), $this->get_version() );
 
+		$this->loader->add_action( 'init', $plugin_public, 'register_ad_slot' );
+		$this->loader->add_action( 'init', $plugin_public, 'register_ad_size' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		$this->loader->add_action( 'init', $plugin_public, 'init' );
 		$this->loader->add_action( 'wp_head', $plugin_public, 'responsive_ads_header' );
 
 	}

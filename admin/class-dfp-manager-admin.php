@@ -104,86 +104,7 @@ class Dfp_Manager_Admin {
 
 	}
 
-	public function init() {
-
-    //###########################
-    #                           #
-    #     Ad Slots Settings     #   
-    #                           #
-    ###########################//
-
-    $ad_slot_labels = array(
-      'name' => 'Ad Slots',
-      'singular_name' => 'Ad Slot',
-      'add_new' => 'Add new',
-      'add_new_item' => 'New Ad Slot',
-      'edit_item' => 'Edit Ad Slot',
-      'new_item' => 'New Ad Slot',
-      'all_items' => 'All Ad Slots',
-      'view_item' => 'View Ad Slot',
-      'search_item' => 'Search Ad Slots',
-      'not_found' => 'No ad slot found',
-      'not_found_in_trash' => 'No ad slot found in Trash',
-      'parent_item_colon' => '',
-      'menu_name' => 'Ad Slots'
-    );
-
-
-
-    $ad_slot_args = array(
-      'labels' => $ad_slot_labels,
-      'public' => false,
-      'publicly_queryable' => false,
-      'show_ui' => true,
-      'show_in_menu' => false,
-      'show_in_admin_bar' => true,
-      'show_in_nav_menus' => true,
-      'can_export' => true,
-      'query_var' => true,
-      //'rewrite' => array( 'slug' => 'ad_slot' ),
-      'capability_type' => 'post',
-      'has_archive' => false,
-      'hierarchical' => false,
-      'menu_position' => null,
-      'supports' => array( 'title' ),
-      'taxonomies' => array( 'ad_size' )
-      );
-
-    register_post_type( 'ad_slot', $ad_slot_args );
-
-
-    //###########################
-    #                           #
-    #     Ad Size Settings      #   
-    #                           #
-    ###########################//
-
-    $ad_size_labels = array(
-      'name' => 'Ad Sizes',
-      'singular_name' => 'Ad Size',
-      'search_items' => 'Search Ad Size',
-      'all_items' => 'All Ad Sizes',
-      'parent_item' => null,
-      'parent_item_colon' => null,
-      'edit_item' => 'Edit Ad Size',
-      'update_item' => 'Update Ad Size',
-      'add_new_item' => 'Add new Ad Size',
-      'new_item_name' => 'New Ad Size Name',
-      'menu_name' => 'Ad Sizes'
-    );
-
-    $ad_size_args = array(
-      'hierarchical' => false,
-      'labels' => $ad_size_labels,
-      'public' => true,
-      'query_var' => true,
-      'show_ui' => true,
-      'show_admin_column' => true,
-      'rewrite' => array( 'slug' => 'ad_size' ),
-    );
-
-    register_taxonomy( 'ad_size', 'ad_slot', $ad_size_args );
-
+	public function register_settings() {
 
 		//###########################
 		#                           #
@@ -237,12 +158,14 @@ class Dfp_Manager_Admin {
 
     register_setting( 'dfp_manager_advanced_settings', 'dfp_manager_advanced_settings');
 
+    // Ad Units
     add_settings_section('adunits_section', 'Ad Units Code', array( $this , 'adunits_section' ), 'adunits_section');
 
     add_settings_field('ad_units_prefix', 'Ad Units Prefix', array( $this , 'ad_units_prefix_setting' ), 'adunits_section', 'adunits_section');
     add_settings_field('ad_units_include_post_type', 'Include "Post type"', array( $this , 'ad_units_include_post_type_setting' ), 'adunits_section', 'adunits_section');
     add_settings_field('ad_units_result', 'Result', array( $this , 'ad_units_result_setting' ), 'adunits_section', 'adunits_section');
 
+    // Ad Slots
     add_settings_section('adslots_section', 'Ad Slots Code', array( $this , 'adslots_section' ), 'adslots_section');
 
     add_settings_field('ad_slots_prefix', 'Ad Slots Prefix', array( $this , 'ad_slots_prefix_setting' ), 'adslots_section', 'adslots_section');

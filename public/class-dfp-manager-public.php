@@ -100,7 +100,7 @@ class Dfp_Manager_Public {
 
 	}
 
-	public function init() {
+	public function register_ad_slot() {
 
 		//###########################
 		#                           #
@@ -146,39 +146,41 @@ class Dfp_Manager_Public {
 		  );
 
 		register_post_type( 'ad_slot', $ad_slot_args );
+	}
+
+	public function register_ad_size() {
 
 		//###########################
-    #                           #
-    #     Ad Size Settings      #   
-    #                           #
-    ###########################//
+		#                           #
+		#     Ad Size Settings      #   
+		#                           #
+		###########################//
 
-    $ad_size_labels = array(
-      'name' => 'Ad Sizes',
-      'singular_name' => 'Ad Size',
-      'search_items' => 'Search Ad Size',
-      'all_items' => 'All Ad Sizes',
-      'parent_item' => null,
-      'parent_item_colon' => null,
-      'edit_item' => 'Edit Ad Size',
-      'update_item' => 'Update Ad Size',
-      'add_new_item' => 'Add new Ad Size',
-      'new_item_name' => 'New Ad Size Name',
-      'menu_name' => 'Ad Sizes'
-    );
+		$ad_size_labels = array(
+		  'name' => 'Ad Sizes',
+		  'singular_name' => 'Ad Size',
+		  'search_items' => 'Search Ad Size',
+		  'all_items' => 'All Ad Sizes',
+		  'parent_item' => null,
+		  'parent_item_colon' => null,
+		  'edit_item' => 'Edit Ad Size',
+		  'update_item' => 'Update Ad Size',
+		  'add_new_item' => 'Add new Ad Size',
+		  'new_item_name' => 'New Ad Size Name',
+		  'menu_name' => 'Ad Sizes'
+		);
 
-    $ad_size_args = array(
-      'hierarchical' => false,
-      'labels' => $ad_size_labels,
-      'public' => true,
-      'query_var' => true,
-      'show_ui' => true,
-      'show_admin_column' => true,
-      'rewrite' => array( 'slug' => 'ad_size' ),
-    );
+		$ad_size_args = array(
+		  'hierarchical' => false,
+		  'labels' => $ad_size_labels,
+		  'public' => true,
+		  'query_var' => true,
+		  'show_ui' => true,
+		  'show_admin_column' => true,
+		  'rewrite' => array( 'slug' => 'ad_size' ),
+		);
 
-    register_taxonomy( 'ad_size', 'ad_slot', $ad_size_args );
-
+		register_taxonomy( 'ad_size', 'ad_slot', $ad_size_args );
 	}
 
 	public function responsive_ads_header() {
