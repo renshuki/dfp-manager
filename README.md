@@ -87,7 +87,6 @@ Coming soon...
 
 ## Todos
   
-  - [ ] Add an option to custom ad banners name for responsive_ads_header
   - [ ] Code refactoring (like taxonomy registration and custom_post)
   - [ ] Custom post filtering function in advanced settings
     - List custom posts and check the ones you want to use DFP Manager
@@ -113,6 +112,7 @@ Coming soon...
  - [x] Ad Sizes (taxonomy)
  - [x] Publish hook for Ad Units creation
  - [x] `wp_header` hook for DFP JS script loader
+ - [x] Add an option to custom ad banners name for responsive_ads_header
 
 ## FAQ  
 
