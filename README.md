@@ -120,6 +120,7 @@ Coming soon...
     - Should disable "Client ID", "Client Secret" and "Refresh Token" if not checked
   - [ ] Add (optional) to Endpoint
   - [ ] Code refactoring in general
+  - [ ] CSV importer to bulk upload a huge amount of Ad Units (more than the 1,000 Ad Units proposed by DFP bult-in feature)
 
 ## Bedones  
 
