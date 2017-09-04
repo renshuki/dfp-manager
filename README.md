@@ -105,6 +105,7 @@ Coming soon...
 
 ## Todos
   
+  - [ ] Upgrade to last DFP API
   - [ ] Custom post filtering function in advanced settings
     - List custom posts and check the ones you want to use DFP Manager
     - This will enable/disable publish hook for these custom posts
