@@ -38,6 +38,9 @@ use Google\AdsApi\Dfp\v201702\Size;
 class Dfp_Manager_Api {
 
   public static function createAdUnit( DfpServices $dfpServices, DfpSession $session) {
+    // Get all Advanced Options
+    $advanced_options = get_option('dfp_manager_advanced_settings');
+
     // Publishing post ID
     $post_id = get_the_ID();
 
@@ -45,7 +48,11 @@ class Dfp_Manager_Api {
     $post_title = get_the_title();
 
     // Publishing post type
-    $post_type = get_post_type();
+    if ($advanced_options['ad_units_include_post_type'] == 1) {
+      $post_type = get_post_type()."_";
+    } else {
+      $post_type = "";
+    }
 
     // Array to store all Ad Units
     $adUnits = array();
@@ -59,9 +66,6 @@ class Dfp_Manager_Api {
     $network = $networkService->getCurrentNetwork();
     $effectiveRootAdUnitId = $network->getEffectiveRootAdUnitId();
 
-    // Get all Advanced Options
-    $advanced_options = get_option('dfp_manager_advanced_settings');
-
     // Get all Ad Slots
     $ad_slots = query_posts('post_type=ad_slot');
 
@@ -70,12 +74,12 @@ class Dfp_Manager_Api {
       $adUnit = new AdUnit();
       $adUnit->setName( $advanced_options['ad_units_prefix'].
                         $post_id.'_'.
-                        $post_type.'_'.
+                        $post_type.
                         ($ad_slot->post_title)
                       );
       $adUnit->setAdUnitCode( $advanced_options['ad_units_prefix'].
                         $post_id.'_'.
-                        $post_type.'_'.
+                        $post_type.
                         ($ad_slot->post_title)
                       );
       $adUnit->setParentId($effectiveRootAdUnitId);
@@ -109,7 +113,7 @@ class Dfp_Manager_Api {
     // Check if Ad Unit already exists
     $pageSize = StatementBuilder::SUGGESTED_PAGE_LIMIT;
     $statementBuilder = (new StatementBuilder())
-            ->where("Name LIKE '".$advanced_options['ad_units_prefix'].$post_id."_".$post_type."_%' and status = :status")
+            ->where("Name LIKE '".$advanced_options['ad_units_prefix'].$post_id.$post_type."_%' and status = :status")
             ->limit($pageSize)
             ->withBindVariableValue('status', InventoryStatus::ACTIVE);
 

@@ -191,6 +191,16 @@ class Dfp_Manager_Public {
 	  $general_options = get_option('dfp_manager_general_settings');
 	  $advanced_options = get_option('dfp_manager_advanced_settings');
 
+	  $network_code = $general_options['network_code'];
+	  $ad_unit_prefix = $advanced_options['ad_units_prefix'];
+
+	  $id = get_the_ID();
+	  if ($advanced_options['ad_units_include_post_type'] == 1) {
+	  	$post_type = get_post_type()."_";
+	  } else {
+	  	$post_type = "";
+	  }
+
 	  echo("
 	    <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
 	    <script>
@@ -219,7 +229,7 @@ class Dfp_Manager_Public {
 	      }
 	    }
 
-	    echo("googletag.defineSlot('/".$general_options['network_code']."/".$advanced_options['ad_units_prefix'].get_the_ID()."_".get_post_type()."_".($ad_slot->post_title)."', ". json_encode($ad_sizes) .", '".$advanced_options['ad_slots_prefix'].($ad_slot->post_title)."').addService(googletag.pubads());\n");
+	    echo("googletag.defineSlot('/".$network_code."/".$ad_unit_prefix.$id."_".$post_type.($ad_slot->post_title)."', ". json_encode($ad_sizes) .", '".$advanced_options['ad_slots_prefix'].($ad_slot->post_title)."').addService(googletag.pubads());\n");
 	  }
 
 	  echo("
