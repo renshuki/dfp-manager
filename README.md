@@ -1,6 +1,4 @@
-_Please don't use this for the moment..._  
-_It's still under development._  
-_Thank you =)_  
+_Caution: This plugin is still in Experimental state_
 
 # What is DFP?
 
@@ -56,11 +54,31 @@ You can use the awesome plugin [github-updater](https://github.com/afragen/githu
 
 ## Configuration  
 
-Coming soon...
+### General Settings
+
+1) Go to DFP Manager -> General Settings  
+2) Enter your **Network Code**  
+3) Enter an **Application Name**  
+4) Upload your **JSON API Key file** to allow the plugin to access your DFP Manager account API  
+
+> Don't forget that you should allow API access in your DFP account settings  
+
+### Advanced Settings
+
+5) Add an **Ad Unit Prefix** if you want to recognize created Ad Units (for example: *wp_* for Wordpress)  
+6) Check include "Post Type" to add the post_type corresponding to your Ad Unit  (like *post*, *page* or *custom_posts* names)
+7) You can fill **Ad Slot Prefix** in case you want to customize IDs for your frontend Ad Units Slots  
+
+> For example with an **Ad Slot Prefix** set to *ad-banner-*:
+> ```javascript
+> googletag.defineSlot('/5048360/test_12_post_C', [[100,100]], 'ad-banner-C').addService(googletag.pubads());
+> ```
 
 ## Usage
 
-Coming soon...
+DFP Manager hook will be executed everytime you __Save__ / __Update__ or __Publish__ a Wordpress post. It will check if the Ad Unit is already present in your DFP account otherwise it will create it for you.  
+
+> Caution: In case an Ad Unit already exists and is archived, the plugin will not reactivate it for you.  
 
 ## CLI Example
 
@@ -87,7 +105,6 @@ Coming soon...
 
 ## Todos
   
-  - [ ] Code refactoring (like taxonomy registration and custom_post)
   - [ ] Custom post filtering function in advanced settings
     - List custom posts and check the ones you want to use DFP Manager
     - This will enable/disable publish hook for these custom posts
@@ -101,6 +118,7 @@ Coming soon...
   - [ ] [Installed Application] or [Web Application Flow] checkbox
     - Should disable "Client ID", "Client Secret" and "Refresh Token" if not checked
   - [ ] Add (optional) to Endpoint
+  - [ ] Code refactoring in general
 
 ## Bedones  
 
@@ -113,6 +131,7 @@ Coming soon...
  - [x] Publish hook for Ad Units creation
  - [x] `wp_header` hook for DFP JS script loader
  - [x] Add an option to custom ad banners name for responsive_ads_header
+ - [x] Code refactoring (like taxonomy registration and custom_post)
 
 ## FAQ  
 
