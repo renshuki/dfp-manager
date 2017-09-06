@@ -42,14 +42,14 @@ class Dfp_Manager_Api {
     $advanced_options = get_option('dfp_manager_advanced_settings');
 
     // Publishing post ID
-    $post_id = $post->ID;
+    $post_id = $post['post_ID'];
 
     // Publishing post title
-    $post_title = $post->post_title;
+    $post_title = $post['post_title'];
 
     // Publishing post type
     if ($advanced_options['ad_units_include_post_type'] == 1) {
-      $post_type = ($post->post_type)."_";
+      $post_type = ($post['post_type'])."_";
     } else {
       $post_type = "";
     }

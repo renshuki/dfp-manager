@@ -57,8 +57,8 @@ register_deactivation_hook( __FILE__, 'deactivate_dfp_manager' );
  * This action is documented in includes/class-dfp-manager-api.php
  */
 function cron_api_dfp_manager() {
-  wp_schedule_single_event(time()+1, 'generate_ad_unit', array( get_post() ));
-  #do_action('generate_ad_unit', get_post());
+  wp_schedule_single_event(time()+1, 'generate_ad_unit', array( $_POST ));
+  #do_action('generate_ad_unit', $_POST);
 }
 
 if( isset($_POST['post_type']) && $_POST['post_type'] != 'ad_slot' ) {
