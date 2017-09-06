@@ -52,15 +52,25 @@ function deactivate_dfp_manager() {
 
 register_deactivation_hook( __FILE__, 'deactivate_dfp_manager' );
 
-
-function api_dfp_manager() {
-  require_once plugin_dir_path( __FILE__ ) . 'includes/class-dfp-manager-api.php';
-  Dfp_Manager_Api::main();
+/**
+ * The code that runs DFP API within a background job.
+ * This action is documented in includes/class-dfp-manager-api.php
+ */
+function cron_api_dfp_manager() {
+  wp_schedule_single_event(time()+1, 'generate_ad_unit', array( get_post() ));
+  #do_action('generate_ad_unit', get_post());
 }
 
 if( isset($_POST['post_type']) && $_POST['post_type'] != 'ad_slot' ) {
-  add_action( 'publish_'.$_POST['post_type'], 'api_dfp_manager' );
+  add_action( 'publish_'.$_POST['post_type'], 'cron_api_dfp_manager' );
 }
+
+function api_dfp_manager($post) {
+  require_once plugin_dir_path( __FILE__ ) . 'includes/class-dfp-manager-api.php';
+  Dfp_Manager_Api::main($post);
+}
+
+add_action('generate_ad_unit', 'api_dfp_manager', 10, 1);
 
 /**
  * The core plugin class that is used to define internationalization,

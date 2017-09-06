@@ -37,19 +37,19 @@ use Google\AdsApi\Dfp\v201702\Size;
 
 class Dfp_Manager_Api {
 
-  public static function createAdUnit( DfpServices $dfpServices, DfpSession $session) {
+  public static function createAdUnit( DfpServices $dfpServices, DfpSession $session, $post) {
     // Get all Advanced Options
     $advanced_options = get_option('dfp_manager_advanced_settings');
 
     // Publishing post ID
-    $post_id = get_the_ID();
+    $post_id = $post->ID;
 
     // Publishing post title
-    $post_title = get_the_title();
+    $post_title = $post->post_title;
 
     // Publishing post type
     if ($advanced_options['ad_units_include_post_type'] == 1) {
-      $post_type = get_post_type()."_";
+      $post_type = ($post->post_type)."_";
     } else {
       $post_type = "";
     }
@@ -143,7 +143,7 @@ class Dfp_Manager_Api {
     return $adUnitSize;
   }
 
-  public static function main() {
+  public static function main($post) {
 
     // Generate a refreshable OAuth2 credential for authentication.
     $general_options = get_option('dfp_manager_general_settings');
@@ -160,7 +160,7 @@ class Dfp_Manager_Api {
         ->withOAuth2Credential($oAuth2Credential)
         ->build();
 
-    self::createAdUnit(new DfpServices(), $session);
+    self::createAdUnit(new DfpServices(), $session, $post);
 
   }
 }
