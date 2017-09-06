@@ -114,7 +114,6 @@ Coming soon...
   - [ ] Ad Unit menu item in DFP Manager to list them (remotely from DFP)
   - [ ] Post: DFP Manager metabox info (Ad Unit already created or not? Present in a DFP Placement?)
   - [ ] Worpdress shortcode for DFP Manager
-  - [ ] Background job for Ad Units creation
   - [ ] Populate Ad Sizes on plugin installation
   - [ ] [Installed Application] or [Web Application Flow] checkbox
     - Should disable "Client ID", "Client Secret" and "Refresh Token" if not checked
@@ -135,6 +134,7 @@ Coming soon...
  - [x] `wp_header` hook for DFP JS script loader
  - [x] Add an option to custom ad banners name for responsive_ads_header
  - [x] Code refactoring (like taxonomy registration and custom_post)
+ - [x] Background job for Ad Units creation
 
 ## FAQ  
 
