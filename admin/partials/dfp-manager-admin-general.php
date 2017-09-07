@@ -28,3 +28,18 @@
       <?= submit_button('Save Changes'); ?>
     </form>
 </div>
+
+<script type="text/javascript">
+  jQuery("input[name*='dfp_manager_general_settings[installedapp_or_webapp]']").on('change', function() {
+    if(this.checked) {
+      jQuery("input[name*='dfp_manager_general_settings[client_id]']").closest('tr').show();
+      jQuery("input[name*='dfp_manager_general_settings[client_secret]']").closest('tr').show();
+      jQuery("input[name*='dfp_manager_general_settings[refresh_token]']").closest('tr').show();
+    } else {
+      jQuery("input[name*='dfp_manager_general_settings[client_id]']").closest('tr').hide();
+      jQuery("input[name*='dfp_manager_general_settings[client_secret]']").closest('tr').hide();
+      jQuery("input[name*='dfp_manager_general_settings[refresh_token]']").closest('tr').hide();
+    }
+  });
+  jQuery("input[name*='dfp_manager_general_settings[installedapp_or_webapp]']").trigger('change');
+</script>
