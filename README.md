@@ -117,7 +117,6 @@ Coming soon...
   - [ ] Populate Ad Sizes on plugin installation
   - [ ] [Installed Application] or [Web Application Flow] checkbox
     - Should disable "Client ID", "Client Secret" and "Refresh Token" if not checked
-  - [ ] Add (optional) to Endpoint
   - [ ] Code refactoring in general
   - [ ] CSV importer to bulk upload a huge amount of Ad Units (more than the 1,000 Ad Units proposed by DFP bult-in feature)
   - [ ] Add an option to rename all created Ad Units slots or change all Ad Unit sizes
@@ -135,6 +134,7 @@ Coming soon...
  - [x] Add an option to custom ad banners name for responsive_ads_header
  - [x] Code refactoring (like taxonomy registration and custom_post)
  - [x] Background job for Ad Units creation
+ - [x] Add (Optional) to Endpoint
 
 ## FAQ  
 

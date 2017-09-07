@@ -283,6 +283,7 @@ class Dfp_Manager_Admin {
   function endpoint_setting() {
     $options = get_option('dfp_manager_general_settings');
     echo "<input name='dfp_manager_general_settings[endpoint]' type='text' class='regular-text' value='{$options['endpoint']}' />";
+    echo "<p class='description'>(Optional)</p>";
   }
 
   // OAUTH2
