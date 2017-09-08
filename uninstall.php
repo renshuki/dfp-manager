@@ -29,3 +29,11 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+// Declare the options
+$general_settings  = 'dfp_manager_general_settings';
+$advanced_settings = 'dfp_manager_advanced_settings';
+
+// Delete the options
+delete_option($general_settings);
+delete_option($advanced_settings);
