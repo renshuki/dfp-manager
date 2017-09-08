@@ -41,6 +41,10 @@ delete_option($advanced_settings);
 // Delete ad_slot custom post type
 delete_custom_post_type('ad_slot');
 
+// Delete ad_size custom taxonomy
+delete_custom_taxonomy('ad_size');
+
+/* Functions */
 function delete_custom_post_type($post_type) {
   $args = array (
     'post_type' => $post_type,
@@ -55,4 +59,8 @@ function delete_custom_post_type($post_type) {
   }
   
   wp_reset_postdata();
+}
+
+function delete_custom_taxonomy($taxonomy) {
+
 }
