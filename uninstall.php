@@ -37,3 +37,22 @@ $advanced_settings = 'dfp_manager_advanced_settings';
 // Delete the options
 delete_option($general_settings);
 delete_option($advanced_settings);
+
+// Delete ad_slot custom post type
+delete_custom_post_type('ad_slot');
+
+function delete_custom_post_type($post_type) {
+  $args = array (
+    'post_type' => $post_type,
+    'nopaging' => true
+  );
+  $query = new WP_Query($args);
+
+  while ($query->have_posts()) {
+    $query->the_post();
+    $id = get_the_ID();
+    wp_delete_post($id, true);
+  }
+  
+  wp_reset_postdata();
+}
