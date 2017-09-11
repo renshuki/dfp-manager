@@ -120,7 +120,6 @@ Coming soon...
 ## Todos
   
   - [ ] Delete custom taxonomy on plugin uninstall
-  - [ ] Delete DFP key folder on plugin uninstall
   - [ ] Upgrade to last DFP API
   - [ ] Custom post filtering function in advanced settings
     - List custom posts and check the ones you want to use DFP Manager
@@ -150,6 +149,7 @@ Coming soon...
  - [x] Background job for Ad Units creation
  - [x] Add (Optional) to Endpoint
  - [x] [Installed Application] or [Web Application Flow] checkbox
+ - [x] Delete DFP key folder on plugin uninstall
 
 ## FAQ  
 
