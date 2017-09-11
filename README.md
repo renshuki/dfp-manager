@@ -19,6 +19,7 @@ Create your *Ad Slots*, define *Ad Sizes* and your *Ad Units* will be created/up
   + Remote Ad Units creation with DFP API
   + Ad Slots management
   + Ad Sizes management
+  + General settings
   + Advanced settings
     - Ad Unit prefix  
 
