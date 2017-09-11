@@ -24,3 +24,71 @@
  *
  * @package    Dfp_Manager
  */
+
+class Dfp_Manager_Uninstaller {
+
+  /**
+   * Short Description. (use period)
+   *
+   * Long Description.
+   *
+   * @since    1.0.0
+   */
+  public static function uninstall() {
+
+    $uninstaller = new Dfp_Manager_Uninstaller();
+
+    // Declare the options
+    $general_settings  = 'dfp_manager_general_settings';
+    $advanced_settings = 'dfp_manager_advanced_settings';
+
+    // Delete the options
+    delete_option($general_settings);
+    delete_option($advanced_settings);
+
+    // Delete ad_slot custom post type
+    $uninstaller->delete_custom_post_type('ad_slot');
+
+    // Delete ad_size custom taxonomy
+    $uninstaller->delete_custom_taxonomy('ad_size');
+
+    // Delete upload folder (including DFP keys)
+    $uninstaller->delete_upload_folder( constant("UPLOAD_FOLDER") );
+
+  }
+
+  /* Functions */
+  function delete_custom_post_type($post_type) {
+    $args = array (
+      'post_type' => $post_type,
+      'nopaging' => true
+    );
+    $query = new WP_Query($args);
+
+    while ($query->have_posts()) {
+      $query->the_post();
+      $id = get_the_ID();
+      wp_delete_post($id, true);
+    }
+    
+    wp_reset_postdata();
+  }
+
+  function delete_custom_taxonomy($taxonomy) {
+
+  }
+
+  function delete_upload_folder($folder_name) {
+    $upload_dir = wp_upload_dir(null, false);
+    $dfp_manager_dirname = $upload_dir['basedir'].'/'. $folder_name;
+
+    if ( file_exists( $dfp_manager_dirname ) ) {
+      foreach (glob($dfp_manager_dirname."/{,.}*", GLOB_BRACE) as $filename) {
+        if (is_file($filename)) {
+          unlink($filename);
+        }
+      }
+      rmdir($dfp_manager_dirname);
+    }
+  }
+}
