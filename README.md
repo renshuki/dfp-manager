@@ -98,19 +98,19 @@ Created 1 ad unit(s).
 ## Screenshots
 
 #### DFP Manager - Menu
-![DFP Manager - Menu](./assets/dfp-manager-menu.png)
+![DFP Manager - Menu](./assets/screenshot-1.png)
 
 #### DFP Manager - Ad Slots
-![DFP Manager - Ad Slots](./assets/dfp-manager-ad-slots.png)
+![DFP Manager - Ad Slots](./assets/screenshot-2.png)
 
 #### DFP Manager - Ad Sizes
-![DFP Manager - Ad Sizes](./assets/dfp-manager-ad-sizes.png)
+![DFP Manager - Ad Sizes](./assets/screenshot-3.png)
 
 #### DFP Manager - General Settings
-![DFP Manager - General Settings](./assets/dfp-manager-general-settings.png)
+![DFP Manager - General Settings](./assets/screenshot-4.png)
 
 #### DFP Manager - Advanced Settings
-![DFP Manager - Advanced Settings](./assets/dfp-manager-advanced-settings.png)
+![DFP Manager - Advanced Settings](./assets/screenshot-5.png)
 
 ## Changelog
 
