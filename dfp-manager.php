@@ -73,6 +73,18 @@ function api_dfp_manager($post) {
 add_action('generate_ad_unit', 'api_dfp_manager', 10, 1);
 
 /**
+ * The code that runs during plugin uninstallation.
+ * This action is documented in includes/class-dfp-manager-uninstaller.php
+ */
+
+function uninstall_dfp_manager() {
+  require_once plugin_dir_path( __FILE__ ) . 'includes/class-dfp-manager-uninstaller.php';
+  Dfp_Manager_Uninstaller::uninstall();
+}
+
+register_uninstall_hook( __FILE__, 'uninstall_dfp_manager' );
+
+/**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
