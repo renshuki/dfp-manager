@@ -158,3 +158,7 @@ Coming soon...
 ## Contributions
 
 Feel free to contribute to this open-source project :)
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/renshuki/dfp-manager/badge.svg?style=beer-square)](https://beerpay.io/renshuki/dfp-manager)  [![Beerpay](https://beerpay.io/renshuki/dfp-manager/make-wish.svg?style=flat-square)](https://beerpay.io/renshuki/dfp-manager?focus=wish)
